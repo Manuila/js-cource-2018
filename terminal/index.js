@@ -66,6 +66,11 @@ program
         return fileManager.readFile();
       })
       .then((data) => {
+        if(!data){
+          const temp = '{"todos":[]}';
+          fileManager.writeFile(temp);
+          data = temp;
+        }
         return JSON.parse(data);
       })
       .then((obj) => {
