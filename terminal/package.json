@@ -1,0 +1,20 @@
+{
+  "name": "terminal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Manuila/js-cource-2018.git"
+  },
+  "author": "Manuila Yauhen",
+  "license": "ISC",
+  "devDependencies": {
+    "commander": "^2.15.1",
+    "inquirer": "^5.1.0"
+  }
+}
