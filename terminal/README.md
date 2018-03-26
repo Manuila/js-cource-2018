@@ -42,3 +42,12 @@ npm install commander --save-dev
 ```bash
 npm install inquirer --save-dev
 ```
+```bash
+npm install uuid --save-dev
+```
+```bash
+npm install fs --save-dev
+```
+```bash
+npm install util --save-dev
+```
