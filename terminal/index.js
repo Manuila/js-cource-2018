@@ -5,9 +5,12 @@ const path = require('path');
 const STORAGE_PATH = path.resolve('./store.json');
 
 const FileManager = require('./src/js/FileManager');
+const EntityTodo = require('./src/js/EntityTodo');
 const Answer = require('./src/js/Answer');
+const User = require('./src/js/User');
 
 const fileManager = new FileManager(STORAGE_PATH);
+const user = new User("Yauhen");
 
 program
   .version('0.0.1')
@@ -48,18 +51,16 @@ const commentQuestions = [
   },
 ];
 
-const todos = [];
-
 program
   .command('create')
   .alias('cr')
   .description('Create new TODO item')
   .action(() => {
-    const answer = new Answer();
+    const entityTodo = new EntityTodo();
+    entityTodo.setUser = user;
     prompt(createQuestions)
       .then((receivedAnswer) => {
-        answer.setTitle = receivedAnswer.title;
-        answer.setDescription = receivedAnswer.description;
+        entityTodo.setAnswer = new Answer(receivedAnswer.title, receivedAnswer.description);
         return fileManager.openFile();
       })
       .then(() => {
@@ -74,7 +75,7 @@ program
         return JSON.parse(data);
       })
       .then((obj) => {
-        obj.todos.push(answer);
+        obj.todos.push(entityTodo);
         return obj;
       })
       .then((updatedObj) => {
