@@ -84,7 +84,7 @@ program
         fileManager.writeFile(data);
       })
       .catch((error) => {
-        console.error(`error: ${error}`);
+        throw error;
       });
   });
 
