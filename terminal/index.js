@@ -1,6 +1,14 @@
 const program = require('commander');
 const { prompt } = require('inquirer');
 
+const path = require('path');
+const STORAGE_PATH = path.resolve('./store.json');
+
+const FileManager = require('./src/js/FileManager');
+const Answer = require('./src/js/Answer');
+
+const fileManager = new FileManager(STORAGE_PATH);
+
 program
   .version('0.0.1')
   .description('TODO app');
@@ -47,9 +55,32 @@ program
   .alias('cr')
   .description('Create new TODO item')
   .action(() => {
-    prompt(createQuestions).then(answers => {
-      // TODO add todo
-    });
+    const answer = new Answer();
+    prompt(createQuestions)
+      .then((receivedAnswer) => {
+        answer.setTitle = receivedAnswer.title;
+        answer.setDescription = receivedAnswer.description;
+        return fileManager.openFile();
+      })
+      .then(() => {
+        return fileManager.readFile();
+      })
+      .then((data) => {
+        return JSON.parse(data);
+      })
+      .then((obj) => {
+        obj.todos.push(answer);
+        return obj;
+      })
+      .then((updatedObj) => {
+        return JSON.stringify(updatedObj);
+      })
+      .then((data) => {
+        fileManager.writeFile(data);
+      })
+      .catch((error) => {
+        console.error(`error: ${error}`);
+      });
   });
 
 program
