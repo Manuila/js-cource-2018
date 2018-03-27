@@ -3,15 +3,10 @@ class EntityTodoRepository {
         this.fileManager = fileManager;
       }
       create(entityTodo) {
-          return this.fileManager.openFile()
-          .then(() => {
-            return this.fileManager.readFile();
-          })
-          .then((data) => {
-            if(!data){
-              data = '{"todos":[]}';
-            }
-            return JSON.parse(data);
+          return this.fileManager.readFile()
+         .then((data) => {
+           if(!data) data = '{"todos":[]}';
+           return JSON.parse(data);
           })
           .then((obj) => {
             obj.todos.push(entityTodo);
@@ -31,10 +26,38 @@ class EntityTodoRepository {
           // TODO update todo
       }
       delete(id){
-          // TODO delete item
+        return this.fileManager.readFile()
+        .then((data) => {
+          if (!data) data = '{}';
+          return JSON.parse(data);
+        })
+        .then((obj) => {
+          const index = obj.todos.findIndex((entityTodo) => entityTodo.id === id)
+          obj.todos.splice(index, 1);
+          return obj;
+        })
+        .then((updatedObj) => {
+          return JSON.stringify(updatedObj);
+        })
+        .then((data) => {
+          this.fileManager.writeFile(data);
+        })
+        .catch((error) => {
+          throw error;
+        });
       }
       getAll(){
-          // TODO get all
+        return this.fileManager.readFile()
+        .then((data) => {
+          if (!data) data = '{}';
+          return JSON.parse(data);
+        })
+        .then((storage) => {
+          return storage.todos || [];
+        })
+        .catch((error) => {
+          throw error;
+        });
       }
     }
 

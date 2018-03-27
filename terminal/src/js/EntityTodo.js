@@ -1,10 +1,12 @@
 const uuidv1 = require('uuid/v1');
+const dateFormat = require('dateformat');
+
 class EntityTodo {
     constructor(id = uuidv1(), answer, user, date) {
         this.id = id;
         this.answer = answer;
         this.user = user;
-        this.date = date;
+        this.date = dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT");
       }
       get getId() {
         return this.id;

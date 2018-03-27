@@ -12,7 +12,6 @@ const EntityTodoRepository = require('./src/js/EntityTodoRepository');
 
 const fileManager = new FileManager(STORAGE_PATH);
 const entityTodoRepository = new EntityTodoRepository(fileManager);
-
 const user = new User("Yauhen");
 
 program
@@ -77,7 +76,7 @@ program
   .description('Update TODO item')
   .action((id) => {
     prompt(questions).then(answers => {
-      // TODO update todo
+      
     });
   });
 
@@ -86,7 +85,7 @@ program
   .alias('rm')
   .description('Remove TODO item by id')
   .action((id) => {
-    // TODO remove item
+    entityTodoRepository.delete(id);
   });
 
 program
@@ -94,7 +93,13 @@ program
   .alias('ls')
   .description('List all TODOs')
   .action(() => {
-    // TODO write todos list to the cli
+    entityTodoRepository.getAll()
+    .then((data) => {
+     console.log(data);
+    })
+    .catch((error) => {
+      throw error;
+    });
   });
 
 program
