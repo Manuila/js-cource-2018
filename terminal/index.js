@@ -8,8 +8,11 @@ const FileManager = require('./src/js/FileManager');
 const EntityTodo = require('./src/js/EntityTodo');
 const Answer = require('./src/js/Answer');
 const User = require('./src/js/User');
+const EntityTodoRepository = require('./src/js/EntityTodoRepository');
 
 const fileManager = new FileManager(STORAGE_PATH);
+const entityTodoRepository = new EntityTodoRepository(fileManager);
+
 const user = new User("Yauhen");
 
 program
@@ -59,34 +62,13 @@ program
     const entityTodo = new EntityTodo();
     entityTodo.setUser = user;
     prompt(createQuestions)
-      .then((receivedAnswer) => {
-        entityTodo.setAnswer = new Answer(receivedAnswer.title, receivedAnswer.description);
-        return fileManager.openFile();
-      })
-      .then(() => {
-        return fileManager.readFile();
-      })
-      .then((data) => {
-        if(!data){
-          const temp = '{"todos":[]}';
-          fileManager.writeFile(temp);
-          data = temp;
-        }
-        return JSON.parse(data);
-      })
-      .then((obj) => {
-        obj.todos.push(entityTodo);
-        return obj;
-      })
-      .then((updatedObj) => {
-        return JSON.stringify(updatedObj);
-      })
-      .then((data) => {
-        fileManager.writeFile(data);
-      })
-      .catch((error) => {
-        throw error;
-      });
+    .then((receivedAnswer) => {
+      entityTodo.setAnswer = new Answer(receivedAnswer.title, receivedAnswer.description);
+      entityTodoRepository.create(entityTodo);
+    })
+    .catch((error) => {
+      throw error;
+    });
   });
 
 program

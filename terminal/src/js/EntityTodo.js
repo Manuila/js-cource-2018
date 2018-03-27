@@ -1,12 +1,10 @@
 const uuidv1 = require('uuid/v1');
-const Answer = require('./Answer');
-const User = require('./User');
 class EntityTodo {
     constructor(id = uuidv1(), answer, user, date) {
         this.id = id;
-        this.answer = new Answer();
-        this.user = new User();
-        this.date = new Date();
+        this.answer = answer;
+        this.user = user;
+        this.date = date;
       }
       get getId() {
         return this.id;
