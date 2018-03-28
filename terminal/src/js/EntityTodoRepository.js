@@ -1,6 +1,10 @@
+const EntityTodoContext = require('./EntityTodoContext')
 class EntityTodoRepository {
     constructor(entityTodoContext) {
-        this.entityTodoContext = entityTodoContext;
+        this.entityTodoContext = new EntityTodoContext();
+      }
+      set setStoragePath(value) {
+        this.entityTodoContext.getFileManager.setPath = value;
       }
       create(entityTodo) {
         return this.entityTodoContext.serialize('{"todos":[]}')

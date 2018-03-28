@@ -1,20 +1,14 @@
 const program = require('commander');
 const { prompt } = require('inquirer');
-
 const path = require('path');
 const STORAGE_PATH = path.resolve('./store.json');
 
-const FileManager = require('./src/js/FileManager');
 const EntityTodo = require('./src/js/EntityTodo');
 const Answer = require('./src/js/Answer');
 const User = require('./src/js/User');
 const EntityTodoRepository = require('./src/js/EntityTodoRepository');
-
-const EntityTodoContext = require('./src/js/EntityTodoContext');
-const fileManager = new FileManager(STORAGE_PATH);
-const entityTodoContext = new EntityTodoContext(fileManager);
-
-const entityTodoRepository = new EntityTodoRepository(entityTodoContext);
+const entityTodoRepository = new EntityTodoRepository();
+entityTodoRepository.setStoragePath = STORAGE_PATH;
 const user = new User("Yauhen");
 
 program

@@ -1,6 +1,13 @@
+const FileManager = require('./FileManager');
 class EntityTodoContext {
     constructor(fileManager) {
-        this.fileManager = fileManager;
+        this.fileManager = new FileManager();
+      }
+      get getFileManager() {
+        return this.fileManager;
+      }
+      set setFileManager(value) {
+        this.fileManager = value;
       }
       serialize(_data = '{}'){
         return this.fileManager.readFile()

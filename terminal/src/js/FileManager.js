@@ -11,18 +11,22 @@ class FileManager {
     constructor(path) {
         this.path = path;
       }
-      
-    openFile() {
-      return fsOpen(this.path, O_APPEND | O_CREAT)
-    }
+      get getPath() {
+        return this.path;
+      }
+      set setPath(value) {
+        this.path = value;
+      }
+      openFile() {
+        return fsOpen(this.path, O_APPEND | O_CREAT)
+      }
 
-    readFile() {
-      return fsReadFile(this.path, { encoding: 'utf8', flag: O_RDONLY | O_CREAT })
-    }
+      readFile() {
+        return fsReadFile(this.path, { encoding: 'utf8', flag: O_RDONLY | O_CREAT })
+      }
 
-    writeFile(data) {
-      return fsWriteFile(this.path, data);
+      writeFile(data) {
+        return fsWriteFile(this.path, data);
+      }
     }
-}
-
 module.exports = FileManager;
