@@ -10,8 +10,11 @@ const Answer = require('./src/js/Answer');
 const User = require('./src/js/User');
 const EntityTodoRepository = require('./src/js/EntityTodoRepository');
 
+const EntityTodoContext = require('./src/js/EntityTodoContext');
 const fileManager = new FileManager(STORAGE_PATH);
-const entityTodoRepository = new EntityTodoRepository(fileManager);
+const entityTodoContext = new EntityTodoContext(fileManager);
+
+const entityTodoRepository = new EntityTodoRepository(entityTodoContext);
 const user = new User("Yauhen");
 
 program
@@ -64,9 +67,6 @@ program
     .then((receivedAnswer) => {
       entityTodo.setAnswer = new Answer(receivedAnswer.title, receivedAnswer.description);
       entityTodoRepository.create(entityTodo);
-    })
-    .catch((error) => {
-      throw error;
     });
   });
 
@@ -75,8 +75,8 @@ program
   .alias('upd')
   .description('Update TODO item')
   .action((id) => {
-    prompt(questions).then(answers => {
-      
+    prompt(updateQuestions).then(receivedAnswer => {
+      //entityTodoRepository.update(id, receivedAnswer.title, receivedAnswer.description);
     });
   });
 
@@ -95,11 +95,8 @@ program
   .action(() => {
     entityTodoRepository.getAll()
     .then((data) => {
-     console.log(data);
+      console.log(data);
     })
-    .catch((error) => {
-      throw error;
-    });
   });
 
 program
@@ -107,7 +104,7 @@ program
   .alias('lk')
   .description('Like TODO item')
   .action((id) => {
-    // TODO mark todo item as liked
+    //entityTodoRepository.setLike(id);
   });
 
 program
@@ -115,8 +112,8 @@ program
   .alias('cmt')
   .description('Comment TODO item')
   .action((id) => {
-    prompt(commentQuestions).then(answers => {
-      // TODO comment for todo item
+    prompt(commentQuestions).then(receivedAnswer => {
+      //entityTodoRepository.setComment(id, receivedAnswer.comment);
     });
   });
 

@@ -1,64 +1,38 @@
 class EntityTodoRepository {
-    constructor(fileManager) {
-        this.fileManager = fileManager;
+    constructor(entityTodoContext) {
+        this.entityTodoContext = entityTodoContext;
       }
       create(entityTodo) {
-          return this.fileManager.readFile()
-         .then((data) => {
-           if(!data) data = '{"todos":[]}';
-           return JSON.parse(data);
-          })
+        return this.entityTodoContext.serialize('{"todos":[]}')
           .then((obj) => {
             obj.todos.push(entityTodo);
-            return obj;
-          })
-          .then((updatedObj) => {
-            return JSON.stringify(updatedObj);
-          })
-          .then((data) => {
-            this.fileManager.writeFile(data);
-          })
-          .catch((error) => {
-            throw error;
-          });
-      }
-      update(id){
-          // TODO update todo
+            this.entityTodoContext.saveChanges(obj);
+            return true;
+          }) 
       }
       delete(id){
-        return this.fileManager.readFile()
-        .then((data) => {
-          if (!data) data = '{}';
-          return JSON.parse(data);
-        })
+        return this.entityTodoContext.serialize()
         .then((obj) => {
           const index = obj.todos.findIndex((entityTodo) => entityTodo.id === id)
-          obj.todos.splice(index, 1);
-          return obj;
-        })
-        .then((updatedObj) => {
-          return JSON.stringify(updatedObj);
-        })
-        .then((data) => {
-          this.fileManager.writeFile(data);
-        })
-        .catch((error) => {
-          throw error;
-        });
+          if(index === -1) {
+            //console.log("Element does not exist!")
+            return false;
+          }
+          else{
+            obj.todos.splice(index, 1);
+            this.entityTodoContext.saveChanges(obj);
+            return true;
+          }
+        }) 
       }
       getAll(){
-        return this.fileManager.readFile()
-        .then((data) => {
-          if (!data) data = '{}';
-          return JSON.parse(data);
-        })
+        return this.entityTodoContext.serialize()
         .then((storage) => {
           return storage.todos || [];
         })
         .catch((error) => {
           throw error;
         });
-      }
     }
-
+  }
     module.exports = EntityTodoRepository;
