@@ -70,7 +70,7 @@ program
   .description('Update TODO item')
   .action((id) => {
     prompt(updateQuestions).then(receivedAnswer => {
-      //entityTodoRepository.update(id, receivedAnswer.title, receivedAnswer.description);
+      entityTodoRepository.update(id, receivedAnswer.title, receivedAnswer.description);
     });
   });
 
@@ -98,7 +98,7 @@ program
   .alias('lk')
   .description('Like TODO item')
   .action((id) => {
-    //entityTodoRepository.setLike(id);
+    entityTodoRepository.setLike(id);
   });
 
 program
@@ -107,7 +107,7 @@ program
   .description('Comment TODO item')
   .action((id) => {
     prompt(commentQuestions).then(receivedAnswer => {
-      //entityTodoRepository.setComment(id, receivedAnswer.comment);
+      entityTodoRepository.setComment(id, receivedAnswer.comment);
     });
   });
 

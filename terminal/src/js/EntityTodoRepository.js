@@ -22,7 +22,7 @@ class EntityTodoRepository {
             //console.log("Element does not exist!")
             return false;
           }
-          else{
+          else {
             obj.todos.splice(index, 1);
             this.entityTodoContext.saveChanges(obj);
             return true;
@@ -37,6 +37,49 @@ class EntityTodoRepository {
         .catch((error) => {
           throw error;
         });
-    }
+      }
+      update(id, ...props){
+        return this.entityTodoContext.serialize()
+        .then((obj) => {
+          const index = obj.todos.findIndex((entityTodo) => entityTodo.id === id)
+          if(index === -1) {
+            return false;
+          }
+          else {
+            obj.todos[index].answer.title = props[0];
+            obj.todos[index].answer.description = props[1];
+            this.entityTodoContext.saveChanges(obj);
+            return true;
+          }
+        })
+      }
+      setLike(id){
+        return this.entityTodoContext.serialize()
+        .then((obj) => {
+          const index = obj.todos.findIndex((entityTodo) => entityTodo.id === id)
+          if(index === -1) {
+            return false;
+          }
+          else {
+            obj.todos[index].isLiked = true;
+            this.entityTodoContext.saveChanges(obj);
+            return true;
+          }
+        })
+      }
+      setComment(id, _comment){
+        return this.entityTodoContext.serialize()
+        .then((obj) => {
+          const index = obj.todos.findIndex((entityTodo) => entityTodo.id === id)
+          if(index === -1) {
+            return false;
+          }
+          else {
+            obj.todos[index].comment = _comment;
+            this.entityTodoContext.saveChanges(obj);
+            return true;
+          }
+        })
+      }
   }
     module.exports = EntityTodoRepository;
