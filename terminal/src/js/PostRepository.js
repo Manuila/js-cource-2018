@@ -1,19 +1,19 @@
-const EntityTodoContext = require('./EntityTodoContext')
+const PostContext = require('./PostContext')
 
-class EntityTodoRepository {
-    constructor(entityTodoContext) {
-        this.entityTodoContext = new EntityTodoContext();
+class PostRepository {
+    constructor(postContext) {
+        this.postContext = new PostContext();
       }
       create(entityTodo) {
-        return this.entityTodoContext.serialize('{"todos":[]}')
+        return this.postContext.serialize('{"todos":[]}')
           .then((obj) => {
             obj.todos.push(entityTodo);
-            this.entityTodoContext.saveChanges(obj);
+            this.postContext.saveChanges(obj);
             return true;
           }) 
       }
       delete(id){
-        return this.entityTodoContext.serialize()
+        return this.postContext.serialize()
         .then((obj) => {
           const index = obj.todos.findIndex((entityTodo) => entityTodo.id === id)
           if(index === -1) {
@@ -21,13 +21,13 @@ class EntityTodoRepository {
           }
           else {
             obj.todos.splice(index, 1);
-            this.entityTodoContext.saveChanges(obj);
+            this.postContext.saveChanges(obj);
             return true;
           }
         })
       }
       getAll(){
-        return this.entityTodoContext.serialize()
+        return this.postContext.serialize()
         .then((storage) => {
           return storage.todos || [];
         })
@@ -36,7 +36,7 @@ class EntityTodoRepository {
         });
       }
       update(id, ...props){
-        return this.entityTodoContext.serialize()
+        return this.postContext.serialize()
         .then((obj) => {
           const index = obj.todos.findIndex((entityTodo) => entityTodo.id === id)
           if(index === -1) {
@@ -45,13 +45,13 @@ class EntityTodoRepository {
           else {
             obj.todos[index].answer.title = props[0];
             obj.todos[index].answer.description = props[1];
-            this.entityTodoContext.saveChanges(obj);
+            this.postContext.saveChanges(obj);
             return true;
           }
         })
       }
       setLike(id){
-        return this.entityTodoContext.serialize()
+        return this.postContext.serialize()
         .then((obj) => {
           const index = obj.todos.findIndex((entityTodo) => entityTodo.id === id)
           if(index === -1) {
@@ -59,13 +59,13 @@ class EntityTodoRepository {
           }
           else {
             obj.todos[index].isLiked = true;
-            this.entityTodoContext.saveChanges(obj);
+            this.postContext.saveChanges(obj);
             return true;
           }
         })
       }
       setComment(id, _comment){
-        return this.entityTodoContext.serialize()
+        return this.postContext.serialize()
         .then((obj) => {
           const index = obj.todos.findIndex((entityTodo) => entityTodo.id === id)
           if(index === -1) {
@@ -73,10 +73,10 @@ class EntityTodoRepository {
           }
           else {
             obj.todos[index].comment = _comment;
-            this.entityTodoContext.saveChanges(obj);
+            this.postContext.saveChanges(obj);
             return true;
           }
         })
       }
   }
-    module.exports = EntityTodoRepository;
+    module.exports = PostRepository;

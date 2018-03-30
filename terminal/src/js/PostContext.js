@@ -2,7 +2,7 @@ const FileManager = require('./FileManager');
 const path = require('path');
 const STORAGE_PATH = path.resolve('./store.json');
 
-class EntityTodoContext {
+class PostContext {
   
       serialize(_data = '{}'){
         return FileManager.readFile(STORAGE_PATH)
@@ -18,4 +18,4 @@ class EntityTodoContext {
           return FileManager.writeFile(STORAGE_PATH, JSON.stringify(updatedObj));
       }
     }
-    module.exports = EntityTodoContext;
+    module.exports = PostContext;

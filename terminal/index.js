@@ -1,10 +1,10 @@
 const program = require('commander');
 const { prompt } = require('inquirer');
-const EntityTodo = require('./src/js/EntityTodo');
+const Post = require('./src/js/Post');
 const Answer = require('./src/js/Answer');
 const User = require('./src/js/User');
-const EntityTodoRepository = require('./src/js/EntityTodoRepository');
-const entityTodoRepository = new EntityTodoRepository();
+const PostRepository = require('./src/js/PostRepository');
+const postRepository = new PostRepository();
 const user = new User("Yauhen");
 
 program
@@ -51,12 +51,12 @@ program
   .alias('cr')
   .description('Create new TODO item')
   .action(() => {
-    const entityTodo = new EntityTodo();
-    entityTodo.setUser = user;
+    const post = new Post();
+    post.setUser = user;
     prompt(createQuestions)
     .then((receivedAnswer) => {
-      entityTodo.setAnswer = new Answer(receivedAnswer.title, receivedAnswer.description);
-      entityTodoRepository.create(entityTodo);
+      post.setAnswer = new Answer(receivedAnswer.title, receivedAnswer.description);
+      postRepository.create(post);
     });
   });
 
