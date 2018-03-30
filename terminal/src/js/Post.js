@@ -1,10 +1,11 @@
 const uuidv1 = require('uuid/v1');
 const dateFormat = require('dateformat');
 
-class EntityTodo {
-    constructor(id = uuidv1(), answer, user, date, isLiked, comment) {
+class Post {
+    constructor(id = uuidv1(), title, description, user, date, isLiked, comment) {
         this.id = id;
-        this.answer = answer;
+        this.title = title;
+        this.description = description;
         this.user = user;
         this.date = dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT");
         this.isLiked = false;
@@ -13,21 +14,27 @@ class EntityTodo {
       get getId() {
         return this.id;
       }
-      get getAnswer(){
-          return this.answer;
+      get getTitle() {
+          return this.title;
       }
-      set setAnswer(value){
-          this.answer = value;
+      set setTitle(value) {
+          this.title = value;
       }
-      get getUser(){
+      get getDescription() {
+          return this.description;
+	  }
+      set setDescription(value){
+          this.description = value;
+      }
+      get getUser() {
           return this.user;
       }
-      set setUser(value){
+      set setUser(value) {
           this.user = value;
       }
-      get getDate(){
+      get getDate() {
           return this.date
       }
     }
 
-    module.exports = EntityTodo;
+    module.exports = Post;

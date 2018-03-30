@@ -1,11 +1,8 @@
 const program = require('commander');
 const { prompt } = require('inquirer');
 const Post = require('./src/js/Post');
-const Answer = require('./src/js/Answer');
-const User = require('./src/js/User');
 const PostRepository = require('./src/js/PostRepository');
 const postRepository = new PostRepository();
-const user = new User("Yauhen");
 
 program
   .version('0.0.1')
@@ -52,10 +49,11 @@ program
   .description('Create new TODO item')
   .action(() => {
     const post = new Post();
-    post.setUser = user;
+    post.setUser = "Yauhen";
     prompt(createQuestions)
     .then((receivedAnswer) => {
-      post.setAnswer = new Answer(receivedAnswer.title, receivedAnswer.description);
+      post.setTitle = receivedAnswer.title;
+      post.setDescription = receivedAnswer.description;
       postRepository.create(post);
     });
   });
