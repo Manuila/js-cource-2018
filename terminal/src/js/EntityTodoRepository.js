@@ -1,10 +1,8 @@
 const EntityTodoContext = require('./EntityTodoContext')
+
 class EntityTodoRepository {
     constructor(entityTodoContext) {
         this.entityTodoContext = new EntityTodoContext();
-      }
-      set setStoragePath(value) {
-        this.entityTodoContext.getFileManager.setPath = value;
       }
       create(entityTodo) {
         return this.entityTodoContext.serialize('{"todos":[]}')
@@ -19,7 +17,6 @@ class EntityTodoRepository {
         .then((obj) => {
           const index = obj.todos.findIndex((entityTodo) => entityTodo.id === id)
           if(index === -1) {
-            //console.log("Element does not exist!")
             return false;
           }
           else {
@@ -27,7 +24,7 @@ class EntityTodoRepository {
             this.entityTodoContext.saveChanges(obj);
             return true;
           }
-        }) 
+        })
       }
       getAll(){
         return this.entityTodoContext.serialize()

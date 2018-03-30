@@ -1,16 +1,11 @@
 const FileManager = require('./FileManager');
+const path = require('path');
+const STORAGE_PATH = path.resolve('./store.json');
+
 class EntityTodoContext {
-    constructor(fileManager) {
-        this.fileManager = new FileManager();
-      }
-      get getFileManager() {
-        return this.fileManager;
-      }
-      set setFileManager(value) {
-        this.fileManager = value;
-      }
+  
       serialize(_data = '{}'){
-        return this.fileManager.readFile()
+        return FileManager.readFile(STORAGE_PATH)
         .then((data) => {
           if(!data) data = _data;
           return JSON.parse(data);
@@ -20,7 +15,7 @@ class EntityTodoContext {
           });
       }
       saveChanges(updatedObj){
-          return this.fileManager.writeFile(JSON.stringify(updatedObj));
+          return FileManager.writeFile(STORAGE_PATH, JSON.stringify(updatedObj));
       }
     }
     module.exports = EntityTodoContext;
