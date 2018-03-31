@@ -74,5 +74,16 @@ class PostRepository {
           }
         })
       }
+      isExist(id){
+        return this.postStorage.getPosts()
+        .then((posts) => {
+          const index = posts.findIndex((post) => post.id === id)
+          if(index === -1) {
+            return false;
+          } else {
+            return true;
+          }
+        })
+      }
   }
     module.exports = PostRepository;

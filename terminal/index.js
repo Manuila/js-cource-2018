@@ -49,12 +49,17 @@ program
   .description('Create new TODO item')
   .action(() => {
     const post = new Post();
-    post.setUser = "Yauhen";
+    post.setUser = 'Yauhen';
     prompt(createQuestions)
     .then((receivedAnswer) => {
-      post.setTitle = receivedAnswer.title;
-      post.setDescription = receivedAnswer.description;
-      postRepository.create(post);
+      if(!(receivedAnswer.title === '' || receivedAnswer.description === '')){
+        post.setTitle = receivedAnswer.title;
+        post.setDescription = receivedAnswer.description;
+        postRepository.create(post);
+        console.log('Object created');
+      } else {
+        console.log('Inputed incorrect data');
+      }
     });
   });
 
@@ -63,9 +68,20 @@ program
   .alias('upd')
   .description('Update TODO item')
   .action((id) => {
-    prompt(updateQuestions).then(receivedAnswer => {
-      postRepository.update(id, receivedAnswer.title, receivedAnswer.description);
-    });
+    postRepository.isExist(id).then((result)=>{
+      if(!result){
+        console.log(`Object with ${id} not found`);
+      } else{
+        prompt(updateQuestions).then(receivedAnswer => {
+          if(!(receivedAnswer.title === '' || receivedAnswer.description === '')){
+            postRepository.update(id, receivedAnswer.title, receivedAnswer.description);
+            console.log(`Object with ${id} updated`);
+          } else {
+            console.log('Inputed incorrect data');
+          }
+        });
+      }
+    })
   });
 
 program
@@ -73,7 +89,10 @@ program
   .alias('rm')
   .description('Remove TODO item by id')
   .action((id) => {
-    postRepository.delete(id);
+    postRepository.delete(id)
+    .then((result) => {
+      console.log(`Object with ${id} ${ !result ?  'not found' : 'deleted'}`)
+    })
   });
 
 program
@@ -82,8 +101,8 @@ program
   .description('List all TODOs')
   .action(() => {
     postRepository.getAll()
-    .then((data) => {
-      console.log(data);
+    .then((result) => {
+      console.log(result);
     })
   });
 
@@ -92,7 +111,10 @@ program
   .alias('lk')
   .description('Like TODO item')
   .action((id) => {
-    postRepository.setLike(id);
+    postRepository.setLike(id)
+    .then((result) => {
+      console.log(`Object with ${id} ${ !result ?  'not found' : 'liked'}`)
+    })
   });
 
 program
@@ -100,9 +122,20 @@ program
   .alias('cmt')
   .description('Comment TODO item')
   .action((id) => {
-    prompt(commentQuestions).then(receivedAnswer => {
-      postRepository.setComment(id, receivedAnswer.comment);
-    });
-  });
+    postRepository.isExist(id).then((result)=>{
+      if(!result){
+        console.log(`Object with ${id} not found`);
+      } else {
+        prompt(commentQuestions).then(receivedAnswer => {
+          if(receivedAnswer.comment === ''){
+            console.log('Inputed incorrect data');
+          } else {
+            postRepository.setComment(id, receivedAnswer.comment)
+            console.log('Comment added');
+          }
+        });
+      }
+    })
+  }); 
 
 program.parse(process.argv);
