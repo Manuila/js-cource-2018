@@ -64,7 +64,7 @@ program
   .description('Update TODO item')
   .action((id) => {
     prompt(updateQuestions).then(receivedAnswer => {
-      entityTodoRepository.update(id, receivedAnswer.title, receivedAnswer.description);
+      postRepository.update(id, receivedAnswer.title, receivedAnswer.description);
     });
   });
 
@@ -73,7 +73,7 @@ program
   .alias('rm')
   .description('Remove TODO item by id')
   .action((id) => {
-    entityTodoRepository.delete(id);
+    postRepository.delete(id);
   });
 
 program
@@ -81,7 +81,7 @@ program
   .alias('ls')
   .description('List all TODOs')
   .action(() => {
-    entityTodoRepository.getAll()
+    postRepository.getAll()
     .then((data) => {
       console.log(data);
     })
@@ -92,7 +92,7 @@ program
   .alias('lk')
   .description('Like TODO item')
   .action((id) => {
-    entityTodoRepository.setLike(id);
+    postRepository.setLike(id);
   });
 
 program
@@ -101,7 +101,7 @@ program
   .description('Comment TODO item')
   .action((id) => {
     prompt(commentQuestions).then(receivedAnswer => {
-      entityTodoRepository.setComment(id, receivedAnswer.comment);
+      postRepository.setComment(id, receivedAnswer.comment);
     });
   });
 

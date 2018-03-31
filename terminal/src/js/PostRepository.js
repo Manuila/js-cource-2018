@@ -1,79 +1,75 @@
-const PostContext = require('./PostContext')
+const PostStorage = require('./PostStorage')
+const path = require('path');
+const STORAGE_PATH = path.resolve('./store.json');
 
 class PostRepository {
-    constructor(postContext) {
-        this.postContext = new PostContext();
+    constructor(postStorage) {
+        this.postStorage = new PostStorage(STORAGE_PATH);
       }
-      create(entityTodo) {
-        return this.postContext.serialize('{"todos":[]}')
-          .then((obj) => {
-            obj.todos.push(entityTodo);
-            this.postContext.saveChanges(obj);
+      create(post) {
+        return this.postStorage.getPosts()
+          .then((posts) => {
+            posts.push(post);
+            this.postStorage.savePosts(posts);
             return true;
           }) 
       }
       delete(id){
-        return this.postContext.serialize()
-        .then((obj) => {
-          const index = obj.todos.findIndex((entityTodo) => entityTodo.id === id)
+        return this.postStorage.getPosts()
+        .then((posts) => {
+          const index = posts.findIndex((post) => post.id === id)
           if(index === -1) {
             return false;
           }
           else {
-            obj.todos.splice(index, 1);
-            this.postContext.saveChanges(obj);
+            posts.splice(index, 1);
+            this.postStorage.savePosts(posts);
             return true;
           }
         })
       }
       getAll(){
-        return this.postContext.serialize()
-        .then((storage) => {
-          return storage.todos || [];
-        })
-        .catch((error) => {
-          throw error;
-        });
+        return this.postStorage.getPosts();
       }
       update(id, ...props){
-        return this.postContext.serialize()
-        .then((obj) => {
-          const index = obj.todos.findIndex((entityTodo) => entityTodo.id === id)
+        return this.postStorage.getPosts()
+        .then((posts) => {
+          const index = posts.findIndex((post) => post.id === id)
           if(index === -1) {
             return false;
           }
           else {
-            obj.todos[index].answer.title = props[0];
-            obj.todos[index].answer.description = props[1];
-            this.postContext.saveChanges(obj);
+            posts[index].title = props[0];
+            posts[index].description = props[1];
+            this.postStorage.savePosts(posts);
             return true;
           }
         })
       }
       setLike(id){
-        return this.postContext.serialize()
-        .then((obj) => {
-          const index = obj.todos.findIndex((entityTodo) => entityTodo.id === id)
+        return this.postStorage.getPosts()
+        .then((posts) => {
+          const index = posts.findIndex((post) => post.id === id)
           if(index === -1) {
             return false;
           }
           else {
-            obj.todos[index].isLiked = true;
-            this.postContext.saveChanges(obj);
+            posts[index].isLiked = true;
+            this.postStorage.savePosts(posts);
             return true;
           }
         })
       }
       setComment(id, _comment){
-        return this.postContext.serialize()
-        .then((obj) => {
-          const index = obj.todos.findIndex((entityTodo) => entityTodo.id === id)
+        return this.postStorage.getPosts()
+        .then((posts) => {
+          const index = posts.findIndex((post) => post.id === id)
           if(index === -1) {
             return false;
           }
           else {
-            obj.todos[index].comment = _comment;
-            this.postContext.saveChanges(obj);
+            posts[index].comment = _comment;
+            this.postStorage.savePosts(posts);
             return true;
           }
         })
