@@ -7,7 +7,7 @@ class PostRepository {
         this.postStorage = new PostStorage(STORAGE_PATH);
       }
 
-      create(post) {
+      add(post) {
         return this.postStorage.getPosts()
           .then((posts) => {
             posts.push(post);
@@ -34,7 +34,7 @@ class PostRepository {
         return this.postStorage.getPosts();
       }
 
-      update(post){
+      update(post){ 
         return this.postStorage.getPosts()
         .then((posts) => {
           const index = posts.findIndex((storedPost) => storedPost.id === post.id)
@@ -49,15 +49,16 @@ class PostRepository {
       }
 
       getById(id){
+        return this.get((post) => post.id===id);
+      }
+
+      get(predicate){
         return this.postStorage.getPosts()
         .then((posts) => {
-          const index = posts.findIndex((storedPost) => storedPost.id === id)
-          if(index === -1) {
-            return null;
-          } else {
-           return posts[index];
-          }
+          const index = posts.findIndex((storedPost) => predicate(storedPost))
+          return posts[index] || null;
         })
       }
+
   }
     module.exports = PostRepository;

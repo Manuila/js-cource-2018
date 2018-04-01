@@ -55,7 +55,7 @@ program
       if(!(receivedAnswer.title === '' || receivedAnswer.description === '')){
         post.setTitle = receivedAnswer.title;
         post.setDescription = receivedAnswer.description;
-        postRepository.create(post);
+        postRepository.add(post);
         console.log('Object created');
       } else {
         console.log('Inputed incorrect data');
