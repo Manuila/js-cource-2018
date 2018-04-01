@@ -68,21 +68,24 @@ program
   .alias('upd')
   .description('Update TODO item')
   .action((id) => {
-    postRepository.isExist(id).then((result)=>{
-      if(!result){
-        console.log(`Object with ${id} not found`);
-      } else{
-        prompt(updateQuestions).then(receivedAnswer => {
-          if(!(receivedAnswer.title === '' || receivedAnswer.description === '')){
-            postRepository.update(id, receivedAnswer.title, receivedAnswer.description);
-            console.log(`Object with ${id} updated`);
-          } else {
-            console.log('Inputed incorrect data');
-          }
-        });
-      }
-    })
-  });
+    postRepository.getById(id)
+    .then((post)=>{
+    if(!post){
+      console.log(`Object with id = ${id} not found`);
+    } else {
+      prompt(updateQuestions).then(receivedAnswer => {
+        if(!(receivedAnswer.title === '' || receivedAnswer.description === '')){
+          post.title = receivedAnswer.title;
+          post.description = receivedAnswer.description;
+          postRepository.update(post)
+          console.log('Object updated');
+        } else {
+          console.log('Inputed incorrect data');
+        }
+      });
+    }
+  })
+});
 
 program
   .command('remove <id>')
@@ -91,7 +94,7 @@ program
   .action((id) => {
     postRepository.delete(id)
     .then((result) => {
-      console.log(`Object with ${id} ${ !result ?  'not found' : 'deleted'}`)
+      console.log(`Object with id = ${id} ${ !result ?  'not found' : 'deleted'}`)
     })
   });
 
@@ -111,26 +114,33 @@ program
   .alias('lk')
   .description('Like TODO item')
   .action((id) => {
-    postRepository.setLike(id)
-    .then((result) => {
-      console.log(`Object with ${id} ${ !result ?  'not found' : 'liked'}`)
+    postRepository.getById(id)
+    .then((post)=>{
+      if(!post){
+        console.log(`Object with id = ${id} not found`);
+      } else {
+        post.isLiked = true;
+        postRepository.update(post)
+        console.log('Object liked');
+      }
     })
-  });
+  }); 
 
 program
   .command('comment <id>')
   .alias('cmt')
   .description('Comment TODO item')
   .action((id) => {
-    postRepository.isExist(id).then((result)=>{
-      if(!result){
-        console.log(`Object with ${id} not found`);
+    postRepository.getById(id).then((post)=>{
+      if(!post){
+        console.log(`Object with id = ${id} not found`);
       } else {
         prompt(commentQuestions).then(receivedAnswer => {
           if(receivedAnswer.comment === ''){
             console.log('Inputed incorrect data');
           } else {
-            postRepository.setComment(id, receivedAnswer.comment)
+            post.comment = receivedAnswer.comment;
+            postRepository.update(post)
             console.log('Comment added');
           }
         });
