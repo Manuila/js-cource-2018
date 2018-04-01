@@ -10,10 +10,12 @@ class PostRepository {
       add(post) {
         return this.postStorage.getPosts()
           .then((posts) => {
-            posts.push(post);
-            this.postStorage.savePosts(posts);
-            return true;
-          }) 
+            posts.push(post)
+            this.postStorage.savePosts(posts)
+            .then(()=>{
+              return true;
+            });
+          });
       }
 
       delete(id){
@@ -24,10 +26,12 @@ class PostRepository {
             return false;
           } else {
             posts.splice(index, 1);
-            this.postStorage.savePosts(posts);
-            return true;
+            this.postStorage.savePosts(posts)
+            .then(()=>{
+              return true;
+            });
           }
-        })
+        });
       }
 
       getAll(){
@@ -42,10 +46,12 @@ class PostRepository {
             return false;
           } else {
             posts[index] = post;
-            this.postStorage.savePosts(posts);
-            return true;
+            this.postStorage.savePosts(posts)
+            .then(()=>{
+              return true;
+            });
           }
-        })
+        });
       }
 
       getById(id){

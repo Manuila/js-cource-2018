@@ -9,6 +9,7 @@ class PostStorage {
       if(!data) data = '{"posts":[]}';
       return JSON.parse(data);
       })
+      .then()
       .then((obj) => {
         return obj.posts;
       })
@@ -16,8 +17,8 @@ class PostStorage {
         throw error;
       });
   }
-  savePosts(updatedPosts){
-      return FileManager.writeFile(this.path, JSON.stringify({posts:updatedPosts}));
+  async savePosts(updatedPosts){
+       await FileManager.writeFile(this.path, JSON.stringify({posts:updatedPosts}));
   }
 }
     module.exports = PostStorage;

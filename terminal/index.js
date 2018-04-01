@@ -55,8 +55,10 @@ program
       if(!(receivedAnswer.title === '' || receivedAnswer.description === '')){
         post.setTitle = receivedAnswer.title;
         post.setDescription = receivedAnswer.description;
-        postRepository.add(post);
-        console.log('Object created');
+        postRepository.add(post)
+        .then(() => {
+          console.log('Object created');
+        });
       } else {
         console.log('Inputed incorrect data');
       }
@@ -77,8 +79,9 @@ program
         if(!(receivedAnswer.title === '' || receivedAnswer.description === '')){
           post.title = receivedAnswer.title;
           post.description = receivedAnswer.description;
-          postRepository.update(post)
-          console.log('Object updated');
+          postRepository.update(post).then(() =>{
+            console.log('Object updated');
+          });
         } else {
           console.log('Inputed incorrect data');
         }
@@ -104,9 +107,9 @@ program
   .description('List all TODOs')
   .action(() => {
     postRepository.getAll()
-    .then((result) => {
-      console.log(result);
-    })
+    .then((posts) => {
+      console.log(posts);
+    });
   });
 
 program
@@ -120,10 +123,11 @@ program
         console.log(`Object with id = ${id} not found`);
       } else {
         post.isLiked = true;
-        postRepository.update(post)
-        console.log('Object liked');
+        postRepository.update(post).then(() => {
+          console.log('Object liked');
+        });
       }
-    })
+    });
   }); 
 
 program
@@ -140,12 +144,13 @@ program
             console.log('Inputed incorrect data');
           } else {
             post.comment = receivedAnswer.comment;
-            postRepository.update(post)
-            console.log('Comment added');
+            postRepository.update(post).then(() => {
+              console.log('Comment added');
+            });
           }
         });
       }
-    })
+    });
   }); 
 
 program.parse(process.argv);
