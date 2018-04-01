@@ -4,6 +4,8 @@ const Post = require('./src/js/Post');
 const PostRepository = require('./src/js/PostRepository');
 const postRepository = new PostRepository();
 
+const print = (...args) => console.info(...args);
+
 program
   .version('0.0.1')
   .description('TODO app');
@@ -56,11 +58,9 @@ program
         post.setTitle = receivedAnswer.title;
         post.setDescription = receivedAnswer.description;
         postRepository.add(post)
-        .then(() => {
-          console.log('Object created');
-        });
+        .then(print('Object created'));
       } else {
-        console.log('Inputed incorrect data');
+          print('Inputed incorrect data');
       }
     });
   });
@@ -71,19 +71,18 @@ program
   .description('Update TODO item')
   .action((id) => {
     postRepository.getById(id)
-    .then((post)=>{
+    .then((post)=> {
     if(!post){
-      console.log(`Object with id = ${id} not found`);
+      print(`Object with id = ${id} not found`);
     } else {
       prompt(updateQuestions).then(receivedAnswer => {
         if(!(receivedAnswer.title === '' || receivedAnswer.description === '')){
           post.title = receivedAnswer.title;
           post.description = receivedAnswer.description;
-          postRepository.update(post).then(() =>{
-            console.log('Object updated');
-          });
+          postRepository.update(post)
+          .then(print('Object updated'));
         } else {
-          console.log('Inputed incorrect data');
+            print('Inputed incorrect data');
         }
       });
     }
@@ -97,7 +96,7 @@ program
   .action((id) => {
     postRepository.delete(id)
     .then((result) => {
-      console.log(`Object with id = ${id} ${ !result ?  'not found' : 'deleted'}`)
+      print(`Object with id = ${id} ${ !result ?  'not found' : 'deleted'}`)
     })
   });
 
@@ -107,9 +106,7 @@ program
   .description('List all TODOs')
   .action(() => {
     postRepository.getAll()
-    .then((posts) => {
-      console.log(posts);
-    });
+    .then(print);
   });
 
 program
@@ -120,12 +117,11 @@ program
     postRepository.getById(id)
     .then((post)=>{
       if(!post){
-        console.log(`Object with id = ${id} not found`);
+        print(`Object with id = ${id} not found`);
       } else {
         post.isLiked = true;
-        postRepository.update(post).then(() => {
-          console.log('Object liked');
-        });
+        postRepository.update(post)
+        .then(print('Object liked'));
       }
     });
   }); 
@@ -135,18 +131,18 @@ program
   .alias('cmt')
   .description('Comment TODO item')
   .action((id) => {
-    postRepository.getById(id).then((post)=>{
+    postRepository.getById(id)
+    .then((post)=>{
       if(!post){
-        console.log(`Object with id = ${id} not found`);
+        print(`Object with id = ${id} not found`);
       } else {
         prompt(commentQuestions).then(receivedAnswer => {
           if(receivedAnswer.comment === ''){
-            console.log('Inputed incorrect data');
+            print('Inputed incorrect data');
           } else {
             post.comment = receivedAnswer.comment;
-            postRepository.update(post).then(() => {
-              console.log('Comment added');
-            });
+            postRepository.update(post)
+            .then( print('Comment added'));
           }
         });
       }

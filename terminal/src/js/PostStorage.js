@@ -9,7 +9,6 @@ class PostStorage {
       if(!data) data = '{"posts":[]}';
       return JSON.parse(data);
       })
-      .then()
       .then((obj) => {
         return obj.posts;
       })
