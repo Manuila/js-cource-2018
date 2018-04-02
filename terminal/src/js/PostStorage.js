@@ -16,8 +16,11 @@ class PostStorage {
         throw error;
       });
   }
-  async savePosts(updatedPosts){
-       await FileManager.writeFile(this.path, JSON.stringify({posts:updatedPosts}));
+ savePosts(updatedPosts){
+    return FileManager.openFile(this.path)
+    .then(() => {
+      return FileManager.writeFile(this.path, JSON.stringify({posts:updatedPosts}));
+    });
   }
 }
     module.exports = PostStorage;
