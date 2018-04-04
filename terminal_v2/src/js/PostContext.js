@@ -1,7 +1,6 @@
 const PostStorage = require('./PostStorage');
 const path = require('path');
 const STORAGE_PATH = path.resolve('./store.json');
-const uuidv1 = require('uuid/v1');
 
 class PostContext {
     constructor(postStorage) {

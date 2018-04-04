@@ -51,7 +51,7 @@ program
   .description('Create new TODO item')
   .action(() => {
     const post = new Post();
-    post.setUser = 'Yauhen';
+    post.user = 'Yauhen';
     prompt(createQuestions)
     .then((receivedAnswer) => {
       post.title = receivedAnswer.title;
