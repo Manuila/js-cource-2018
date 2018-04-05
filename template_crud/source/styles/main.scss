@@ -1,0 +1,155 @@
+@import "reset.scss";  
+
+.page {
+    font: 12px 'Roboto Condensed', sans-serif;
+	color: #000;
+	background: #fff;
+    display: flex;
+    
+    &__wrapper {
+        min-height: 100vh;
+	    width: 100%;
+	    display: flex;
+        flex-direction: column;
+    }
+
+    &__body {
+        flex: 1 0 auto;
+        padding-top: 50px;
+    }
+
+    &__header,
+    &__footer {
+    flex-shrink: 0;
+    }
+
+    &__footer {
+        font-size: 14px;
+        text-align: center;
+        padding: 10px 0px;
+    }
+}
+
+.todo-component__wrapper{
+    padding: 0px 200px;
+}
+
+.page__title,
+.todo-component__header-title{
+    text-transform: uppercase;
+    text-align: center;
+    padding: 10px 0px;
+}
+
+.todo-component__header{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items:center;
+	padding: 5px 10px;
+	margin-bottom: 20px;
+	font-size: 24px;
+	background: #418bca;
+    color:#fff;
+    
+    &-title{
+        padding: 10px 0px;
+    }
+}
+
+.todo-component__posts{
+	padding: 10px 0px;
+}
+
+.table-posts{
+    width: 100%;
+
+    &__cell-head{
+        font-weight: 600;
+        border-bottom: 2px solid #dddddd;
+    }
+
+    &__cell{
+        padding: 5px 10px;
+    }
+
+    &__cell:last-child {
+        text-align: center;
+    }
+    &-body{
+        border-bottom: 1px solid #dddddd;
+    }
+}
+.table__row-body{
+    font-size: 14px;
+
+    &:nth-child(odd){
+        background: #f2f2f2;
+    }
+    &:nth-child(even) .table-posts__cell-body > .btn:hover:hover{
+        background-color: #f2f2f2;
+    }
+}
+
+.btn{
+	border:none;
+	border-radius: 0px;
+	color:#fff;
+	padding: 10px 15px;
+	font-size: 14px;
+	text-transform: capitalize;
+	cursor: pointer;
+	transition: color 0.4s, background-color 0.4s;
+}
+
+@function unicode($str){
+    @return unquote("\"")+unquote(str-insert($str, "\\", 1))+unquote("\"")
+  };
+
+@mixin make-icon($unicode){
+    font-family: "Font Awesome 5 Free"; 
+	font-weight: 400; 
+	content:unicode($unicode);
+	padding-right: 5px;
+};
+.btn_add{
+    background-color:#18bc9c;
+    &::before {
+        @include make-icon("f0fe");
+    }
+
+    &:hover{
+        background-color:#fff;
+        color:#18bc9c;
+    }
+}
+
+.btn_edit{
+    background-color:#208fed;
+    
+    &::before {
+        @include make-icon("f044");
+    }
+    &:hover{
+        background-color:#fff;
+        color:#208fed;
+    }
+}
+.btn_del{
+    background-color:#e74c3c;
+
+    &::before { 
+        @include make-icon("f2ed");
+    }
+
+    &:hover{
+        background-color:#fff;
+        color: #e74c3c;
+    }
+}
+
+@media(max-width: 767px){
+	.todo-component__wrapper{
+		padding: 0px 10px;
+	}
+}
