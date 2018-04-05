@@ -83,27 +83,36 @@ blockquote, q {
 	padding: 0px 200px;
 }
 .todo-component__header{
+	display: flex;
+	justify-content: space-between;
+	align-items:center;
+	padding: 5px 10px;
 	margin-bottom: 20px;
 	font-size: 24px;
 	background: #418bca;
 	color:#fff;
 }
-.todo-component__header-title{
-	padding: 10px 0px;
-}
+.todo-component__header-title,
 .todo-component__posts{
 	padding: 10px 0px;
 }
+
 .table-posts{
 	width: 100%;
 }
 .table-posts__cell-head{
 	font-weight: 600;
+	border-bottom: 2px solid #dddddd;
 }
+
 .table-posts__cell {
-	border-top: 1px solid #dddddd;
+	padding: 5px 10px;
+}
+.table-posts__cell:last-child {
+	text-align: center;
+}
+.table-posts__cell-body{
 	border-bottom: 1px solid #dddddd;
-	padding: 5px;
 }
 .table__row-body{
 	font-size: 14px;
@@ -120,9 +129,9 @@ blockquote, q {
 	border:none;
 	border-radius: 0px;
 	color:#fff;
-	padding: 5px 10px;
+	padding: 10px 15px;
 	font-size: 14px;
-	text-transform: lowercase;
+	text-transform: capitalize;
 	cursor: pointer;
 	transition: color 0.4s, background-color 0.4s;
 }
@@ -141,13 +150,34 @@ blockquote, q {
 }
 .btn_edit:hover{
 	background-color:#fff;
-	color:#208fed
+	color:#208fed;
 }
 .btn_add:hover{
 	background-color:#fff;
 	color:#18bc9c;
 }
-
+.table__row-body:nth-child(even) .table-posts__cell-body > .btn_del:hover,
+.table__row-body:nth-child(even) .table-posts__cell-body > .btn_edit:hover {
+	background-color: #f2f2f2;
+} 
+.btn_add::before{
+	font-family: "Font Awesome 5 Free"; 
+	font-weight: 400; 
+	content: "\f0fe";
+	padding-right: 5px;
+}
+.btn_edit::before{
+	font-family: "Font Awesome 5 Free"; 
+	font-weight: 400; 
+	content: "\f044";
+	padding-right: 5px;
+}
+.btn_del::before{
+	font-family: "Font Awesome 5 Free"; 
+	font-weight: 400; 
+	content: "\f2ed";
+	padding-right: 5px;
+}
 @media(max-width: 767px){
 	.todo-component__wrapper{
 		padding: 0px 10px;
