@@ -16,24 +16,31 @@
     &__body {
         flex: 1 0 auto;
         padding-top: 50px;
+        background-color: #bfc3ce;
     }
 
     &__header,
     &__footer {
-    flex-shrink: 0;
+        flex-shrink: 0;
+        color: #fff;
+        font-size: 16px;
     }
 
+    &__header{
+        background-color:#878b94;
+    }
+
+
     &__footer {
-        font-size: 14px;
         text-align: center;
         padding: 10px 0px;
+        background-color:#878b94;
     }
 }
 
 .todo-component__wrapper{
     padding: 0px 200px;
 }
-
 .page__title,
 .todo-component__header-title{
     text-transform: uppercase;
@@ -47,7 +54,6 @@
 	justify-content: space-between;
 	align-items:center;
 	padding: 5px 10px;
-	margin-bottom: 20px;
 	font-size: 24px;
 	background: #418bca;
     color:#fff;
@@ -58,15 +64,16 @@
 }
 
 .todo-component__posts{
-	padding: 10px 0px;
+    padding: 10px 0px;
+    background-color: #fff;
 }
-
 .table-posts{
     width: 100%;
 
     &__cell-head{
         font-weight: 600;
         border-bottom: 2px solid #dddddd;
+        text-align: left;
     }
 
     &__cell{
@@ -112,6 +119,7 @@
 	content:unicode($unicode);
 	padding-right: 5px;
 };
+
 .btn_add{
     background-color:#18bc9c;
     &::before {
@@ -130,6 +138,7 @@
     &::before {
         @include make-icon("f044");
     }
+
     &:hover{
         background-color:#fff;
         color:#208fed;
@@ -148,8 +157,8 @@
     }
 }
 
-@media(max-width: 767px){
+@media(max-width: 860px){
 	.todo-component__wrapper{
 		padding: 0px 10px;
-	}
+    }
 }

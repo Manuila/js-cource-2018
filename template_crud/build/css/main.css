@@ -54,14 +54,20 @@ table {
 .page__body {
   flex: 1 0 auto;
   padding-top: 50px;
+  background-color: #bfc3ce;
 }
 .page__header, .page__footer {
   flex-shrink: 0;
+  color: #fff;
+  font-size: 16px;
+}
+.page__header {
+  background-color: #878b94;
 }
 .page__footer {
-  font-size: 14px;
   text-align: center;
   padding: 10px 0px;
+  background-color: #878b94;
 }
 
 .todo-component__wrapper {
@@ -81,7 +87,6 @@ table {
   justify-content: space-between;
   align-items: center;
   padding: 5px 10px;
-  margin-bottom: 20px;
   font-size: 24px;
   background: #418bca;
   color: #fff;
@@ -92,6 +97,7 @@ table {
 
 .todo-component__posts {
   padding: 10px 0px;
+  background-color: #fff;
 }
 
 .table-posts {
@@ -100,6 +106,7 @@ table {
 .table-posts__cell-head {
   font-weight: 600;
   border-bottom: 2px solid #dddddd;
+  text-align: left;
 }
 .table-posts__cell {
   padding: 5px 10px;
@@ -174,7 +181,7 @@ table {
   color: #e74c3c;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 860px) {
   .todo-component__wrapper {
     padding: 0px 10px;
   }
