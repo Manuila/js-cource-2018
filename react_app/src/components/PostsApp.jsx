@@ -3,9 +3,10 @@ import PostsList from './PostsList'
 import PostEditor from './PostEditor'
 
 class PostsApp extends Component {
-  
-  state = { posts: [] };
 
+  state = {
+    posts: []
+  }
   // is invoked immediately after a component is mounted
   componentDidMount = () => {
     var localPosts = JSON.parse(localStorage.getItem('posts'));
@@ -17,6 +18,11 @@ class PostsApp extends Component {
   // is invoked immediately after updating occurs
   componentDidUpdate = () => {
     return this._updateLocalStorage();
+  }
+
+  _updateLocalStorage = () => {
+    const posts = JSON.stringify(this.state.posts);
+    localStorage.setItem('posts', posts);
   }
 
   handlePostAdd = (newPost) => {
@@ -33,25 +39,20 @@ class PostsApp extends Component {
     });
     this.setState({ posts: newPosts });
   }
-
-  handlePostEdit = (post) => {
+  
+  handlePostEdit = (post, ...updateData) => {
     const newPosts = this.state.posts.slice();
     const index = newPosts.findIndex((storedPost) => storedPost.id === post.id);
-    newPosts[index].title = 'newTitle';
-    newPosts[index].description = 'newDescription';
+    newPosts[index].title = updateData[0];
+    newPosts[index].description = updateData[1];
     this.setState({ posts: newPosts });
-  }
-
-  _updateLocalStorage = () => {
-    const posts = JSON.stringify(this.state.posts);
-    localStorage.setItem('posts', posts);
   }
 
   render() {
     return (
       <div>
         <PostEditor 
-        onPostAdd={this.handlePostAdd} />
+          onPostAdd={this.handlePostAdd} />
         <PostsList
           posts={this.state.posts}
           onPostDelete={this.handlePostDel}
