@@ -50,8 +50,8 @@ class PostsApp extends Component {
 
   render() {
     return (
-      <article class="todo-component">
-        <div class="todo-component__wrapper">
+      <article className="todo-component">
+        <div className="todo-component__wrapper">
           <PostEditor 
             onPostAdd={this.handlePostAdd} />
           <PostsList

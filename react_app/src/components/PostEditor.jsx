@@ -42,17 +42,17 @@ save = () => {
 
 renderInit = () => {
   return(
-    <header class="todo-component__header">
-      <h1 class='todo-component__header-title'>posts</h1>
-      <button class='btn btn_add' onClick={this.add}>create</button>
+    <header className="todo-component__header">
+      <h1 className='todo-component__header-title'>posts</h1>
+      <button className='btn btn_add' onClick={this.add}>create</button>
     </header>
   )
 }
 
 renderAdd = () => {
   return (
-    <header class="todo-component__header">
-      <h1 class='todo-component__header-title'>Create post</h1>
+    <header className="todo-component__header">
+      <h1 className='todo-component__header-title'>Create post</h1>
       <input placeholder = "title"
         onChange={(event) => this.handleInput(event, 'title')}
         value={this.state.postData.title}
@@ -62,8 +62,8 @@ renderAdd = () => {
         value={this.state.postData.description}
       />
       <div>
-        <button class='btn btn_save' onClick={this.handlePostAdd}>Ok</button>
-        <button class='btn btn_cancel' onClick={this.save}>Cancel</button>
+        <button className='btn btn_save' onClick={this.handlePostAdd}>Ok</button>
+        <button className='btn btn_cancel' onClick={this.save}>Cancel</button>
       </div>
     </header>
   );
