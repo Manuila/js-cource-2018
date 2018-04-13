@@ -15,11 +15,16 @@ class Post extends Component {
   }
 
   save = () => {
-    this.setState({edit:false});
     this.props.onEdit(
       this.state.postData.title,
       this.state.postData.description
     );
+    this.setState({edit:false});
+  }
+  cancel = () => {
+    this.setState({edit:false});
+    this.state.postData.title = this.props.title;
+    this.state.postData.description = this.props.description;
   }
   
   handleInput = (event, name) => {
@@ -32,32 +37,39 @@ class Post extends Component {
 
   renderInit = () => {
     return(
-      <div>
-        <span>
-          {this.props.title}
-        </span>
-        <span>
-          {this.props.description}
-        </span>
-        <button onClick={this.edit}>Edit</button>
-        <button onClick = {this.props.onDelete}>Delete</button>
-      </div>
+        <tr class="table-posts__row table__row-body">
+          <td class="table-posts__cell table-posts__cell-body">{this.props.index}</td>
+          <td class="table-posts__cell table-posts__cell-body">{this.props.title}</td>
+          <td class="table-posts__cell table-posts__cell-body">{this.props.description}</td>
+          <td class="table-posts__cell table-posts__cell-body" >
+              <button class='btn btn_del' onClick = {this.props.onDelete}>delete</button>
+              <button class='btn btn_edit'onClick={this.edit}>edit</button>
+          </td>
+        </tr>                  
     )
   }
 
   renderEdit = () => {
     return(
-      <div>
-        <input
-          value = {this.state.postData.title}
-          onChange = {(event) => this.handleInput(event, 'title')}
-        />
-         <input
-          value = {this.state.postData.description}
-          onChange = {(event) => this.handleInput(event, 'description')}
-        />
-        <button onClick={this.save}>Save</button>
-      </div>
+        <tr class="table-posts__row table__row-body">
+          <td class="table-posts__cell table-posts__cell-body">{this.props.index}</td>
+          <td class="table-posts__cell table-posts__cell-body">
+            <input
+              value = {this.state.postData.title}
+              onChange = {(event) => this.handleInput(event, 'title')}
+            />
+          </td>
+          <td class="table-posts__cell table-posts__cell-body">
+            <input
+              value = {this.state.postData.description}
+              onChange = {(event) => this.handleInput(event, 'description')}
+            />
+          </td>
+          <td class="table-posts__cell table-posts__cell-body" >
+              <button class='btn btn_save'onClick={this.save}>Ok</button>
+              <button class='btn btn_cancel'onClick={this.cancel}>Cancel</button>
+          </td>
+        </tr>           
     )
   }
 

@@ -50,15 +50,17 @@ class PostsApp extends Component {
 
   render() {
     return (
-      <div>
-        <PostEditor 
-          onPostAdd={this.handlePostAdd} />
-        <PostsList
-          posts={this.state.posts}
-          onPostDelete={this.handlePostDel}
-          onPostEdit={this.handlePostEdit}
-        />
-      </div>
+      <article class="todo-component">
+        <div class="todo-component__wrapper">
+          <PostEditor 
+            onPostAdd={this.handlePostAdd} />
+          <PostsList
+            posts={this.state.posts}
+            onPostDelete={this.handlePostDel}
+            onPostEdit={this.handlePostEdit}
+          />
+        </div>
+      </article>
     );
   }
 }

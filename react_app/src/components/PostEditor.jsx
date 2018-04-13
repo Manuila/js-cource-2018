@@ -7,7 +7,8 @@ class PostEditor extends Component {
     postData: {
       title: '',
       description: ''
-    }
+    },
+    add: false
   };
   
 handleInput = (event, name) => {
@@ -29,23 +30,53 @@ handlePostAdd = () => {
   this.state.postData.title = '';
   this.state.postData.description = '';
 }
+add = () => {
+  this.setState({add:true})
+}
 
-render() {
+save = () => {
+  this.setState({add:false});
+  this.state.postData.title = '';
+  this.state.postData.description = '';
+}
+
+renderInit = () => {
+  return(
+    <header class="todo-component__header">
+      <h1 class='todo-component__header-title'>posts</h1>
+      <button class='btn btn_add' onClick={this.add}>create</button>
+    </header>
+  )
+}
+
+renderAdd = () => {
   return (
-    <div>
-      <input
+    <header class="todo-component__header">
+      <h1 class='todo-component__header-title'>Create post</h1>
+      <input placeholder = "title"
         onChange={(event) => this.handleInput(event, 'title')}
         value={this.state.postData.title}
       />
-       <input
+       <input placeholder = "description"
         onChange={(event) => this.handleInput(event, 'description')}
         value={this.state.postData.description}
       />
-      <button onClick={this.handlePostAdd}>
-        Add
-      </button>
-    </div>
+      <div>
+        <button class='btn btn_save' onClick={this.handlePostAdd}>Ok</button>
+        <button class='btn btn_cancel' onClick={this.save}>Cancel</button>
+      </div>
+    </header>
   );
+}
+
+render(){
+  const add = this.state.add;
+  
+   if(add){
+     return this.renderAdd();
+   } else return this.renderInit();
+  
+  
 }
 }
 export default PostEditor;
