@@ -27,7 +27,7 @@ class PostsList extends Component {
                     title={post.title}
                     description={post.description}
                     onDelete={() => this.props.onPostDelete(post)}
-                    onEdit={(...data) => this.props.onPostEdit(post, ...data)}
+                    onEdit={({ title, description }) => this.props.onPostEdit(post, { title, description })}
                   />
                 })
               }

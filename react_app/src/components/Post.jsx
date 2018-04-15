@@ -1,38 +1,18 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { Form } from "./form";
 
 class Post extends Component {
-  
   state = {
-    postData: {
-      title: this.props.title,
-      description: this.props.description,
-    },
-    edit: false
+    isEditing: false
   };
 
   edit = () => {
-    this.setState({edit:true})
-  }
-
-  save = () => {
-    this.props.onEdit(
-      this.state.postData.title,
-      this.state.postData.description
-    );
-    this.setState({edit:false});
-  }
-  cancel = () => {
-    this.setState({edit:false});
-    this.state.postData.title = this.props.title;
-    this.state.postData.description = this.props.description;
+    this.setState({isEditing:true})
   }
   
-  handleInput = (event, name) => {
-    const newPostData = {
-      ...this.state.postData
-    }
-    newPostData[name] = event.target.value;
-    this.setState({postData : newPostData})
+  cancel = () => {
+    this.setState({isEditing:false});
   }
 
   renderInit = () => {
@@ -51,30 +31,19 @@ class Post extends Component {
 
   renderEdit = () => {
     return(
-        <tr className="table-posts__row table__row-body">
-          <td className="table-posts__cell table-posts__cell-body">{this.props.index}</td>
-          <td className="table-posts__cell table-posts__cell-body">
-            <input
-              value = {this.state.postData.title}
-              onChange = {(event) => this.handleInput(event, 'title')}
-            />
-          </td>
-          <td className="table-posts__cell table-posts__cell-body">
-            <input
-              value = {this.state.postData.description}
-              onChange = {(event) => this.handleInput(event, 'description')}
-            />
-          </td>
-          <td className="table-posts__cell table-posts__cell-body" >
-              <button className='btn btn_save'onClick={this.save}>Ok</button>
-              <button className='btn btn_cancel'onClick={this.cancel}>Cancel</button>
-          </td>
-        </tr>           
-    )
+    <tr className="table-posts__row table__row-body">
+      <Form
+        defaultTitleValue = {this.props.title}
+        defaultDescriptionValue = {this.props.description}
+        onChangeInput={({ title, description }) => {this.props.onEdit({ title, description }), this.cancel();} }
+        buttonCancelClick = {this.cancel}
+      />
+    </tr>
+    );
   }
 
   render(){
-    const edit = this.state.edit;
+    const edit = this.state.isEditing;
     
      if(edit){
        return this.renderEdit();

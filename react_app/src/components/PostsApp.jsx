@@ -40,28 +40,42 @@ class PostsApp extends Component {
     this.setState({ posts: newPosts });
   }
   
-  handlePostEdit = (post, ...updateData) => {
+  handlePostEdit = (post, { title, description }) => {
     const newPosts = this.state.posts.slice();
     const index = newPosts.findIndex((storedPost) => storedPost.id === post.id);
-    newPosts[index].title = updateData[0];
-    newPosts[index].description = updateData[1];
+    newPosts[index].title = title;
+    newPosts[index].description = description;
     this.setState({ posts: newPosts });
   }
 
   render() {
-    return (
-      <article className="todo-component">
-        <div className="todo-component__wrapper">
-          <PostEditor 
-            onPostAdd={this.handlePostAdd} />
-          <PostsList
-            posts={this.state.posts}
-            onPostDelete={this.handlePostDel}
-            onPostEdit={this.handlePostEdit}
-          />
-        </div>
-      </article>
-    );
+    if(this.state.posts.length){
+      return (
+        <article className="todo-component">
+          <div className="todo-component__wrapper">
+            
+            <PostEditor 
+              onPostAdd={this.handlePostAdd} />
+            <PostsList
+              posts={this.state.posts}
+              onPostDelete={this.handlePostDel}
+              onPostEdit={this.handlePostEdit}
+            />
+          </div>
+        </article>
+      );
+    }
+    else{
+      return (
+        <article className="todo-component">
+          <div className="todo-component__wrapper">
+            <PostEditor 
+              onPostAdd={this.handlePostAdd} />
+           <div>No posts</div>
+          </div>
+        </article>
+      );
+    }
   }
 }
 export default PostsApp

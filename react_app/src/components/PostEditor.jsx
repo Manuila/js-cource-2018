@@ -4,40 +4,15 @@ import uuidv1 from 'uuid/v1';
 class PostEditor extends Component {
  
   state = {
-    postData: {
-      title: '',
-      description: ''
-    },
-    add: false
+    isAdding: false
   };
   
-handleInput = (event, name) => {
-  const newPostData = {
-    ...this.state.postData
-  }
-  newPostData[name] = event.target.value;
-  this.setState({postData : newPostData})
-}
-
-handlePostAdd = () => {
-  const newPost = {
-    id: uuidv1(),
-    title: this.state.postData.title,
-    description: this.state.postData.description,
-
-  };
-  this.props.onPostAdd(newPost);
-  this.state.postData.title = '';
-  this.state.postData.description = '';
-}
 add = () => {
-  this.setState({add:true})
+  this.setState({isAdding:true})
 }
 
 save = () => {
-  this.setState({add:false});
-  this.state.postData.title = '';
-  this.state.postData.description = '';
+  this.setState({isAdding:false});
 }
 
 renderInit = () => {
@@ -53,24 +28,18 @@ renderAdd = () => {
   return (
     <header className="todo-component__header">
       <h1 className='todo-component__header-title'>Create post</h1>
-      <input placeholder = "title"
-        onChange={(event) => this.handleInput(event, 'title')}
-        value={this.state.postData.title}
+      <Form
+        defaultTitleValue = {this.props.title}
+        defaultDescriptionValue = {this.props.description}
+        onChangeInput={({ title, description }) => {this.props.onPostAdd({  id: uuidv1(), title: title, description: description }), this.cancel();} }
+        buttonCancelClick = {this.cancel}
       />
-       <input placeholder = "description"
-        onChange={(event) => this.handleInput(event, 'description')}
-        value={this.state.postData.description}
-      />
-      <div>
-        <button className='btn btn_save' onClick={this.handlePostAdd}>Ok</button>
-        <button className='btn btn_cancel' onClick={this.save}>Cancel</button>
-      </div>
     </header>
   );
 }
 
 render(){
-  const add = this.state.add;
+  const add = this.state.isAdding;
   
    if(add){
      return this.renderAdd();
