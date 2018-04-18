@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Post from './Post'
+import Post from './post'
 
 class PostsList extends Component {
 
@@ -13,6 +13,9 @@ class PostsList extends Component {
                 <th className="table-posts__cell table-posts__cell-head">#</th>
                 <th className="table-posts__cell table-posts__cell-head">Title</th>
                 <th className="table-posts__cell table-posts__cell-head">Description</th>
+                <th className="table-posts__cell table-posts__cell-head">Сreation Date</th>
+                <th className="table-posts__cell table-posts__cell-head">Publish</th>
+                <th className="table-posts__cell table-posts__cell-head">Like</th>
                 <th colSpan="2" className="table-posts__cell table-posts__cell-head">
                   Action
                 </th>
@@ -26,6 +29,11 @@ class PostsList extends Component {
                     index = {i + 1}
                     title={post.title}
                     description={post.description}
+                    date = {post.date}
+                    isPublished = {post.isPublished}
+                    isLiked = {post.isLiked}
+                    onPostLiked = {() => this.props.onPostLiked(post)}
+                    onPostPublished = {() => this.props.onPostPublished(post)}
                     onDelete={() => this.props.onPostDelete(post)}
                     onEdit={({ title, description }) => this.props.onPostEdit(post, { title, description })}
                   />

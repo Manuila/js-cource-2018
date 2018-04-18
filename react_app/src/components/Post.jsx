@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Form } from "./form";
+import { Form } from "./Forms/formEdit";
 
 class Post extends Component {
   state = {
     isEditing: false
   };
 
-  edit = () => {
-    this.setState({isEditing:true})
+  toggleChange = () =>{
+    this.setState({
+      isEditing: !this.state.isEditing,
+    });
   }
   
-  cancel = () => {
-    this.setState({isEditing:false});
+  handlePostEdit = ({ title, description }) => {
+    this.props.onEdit({title, description });
+    this.toggleChange();
   }
 
   renderInit = () => {
@@ -21,9 +24,25 @@ class Post extends Component {
           <td className="table-posts__cell table-posts__cell-body">{this.props.index}</td>
           <td className="table-posts__cell table-posts__cell-body">{this.props.title}</td>
           <td className="table-posts__cell table-posts__cell-body">{this.props.description}</td>
+          <td className="table-posts__cell table-posts__cell-body">{this.props.date}</td>
+          <td className="table-posts__cell table-posts__cell-body">
+            <input 
+              type="checkbox"
+              checked = {this.props.isPublished}
+              onClick = {this.props.onPostPublished}
+            />
+          </td>
+          <td className="table-posts__cell table-posts__cell-body">
+            <span>
+              <i
+                className={`far fa-thumbs-up ${this.props.isLiked ? "far fa-thumbs-up-active" : ""}`}
+                onClick={this.props.onPostLiked}
+              />
+            </span>
+          </td>
           <td className="table-posts__cell table-posts__cell-body" >
               <button className='btn btn_del' onClick = {this.props.onDelete}>delete</button>
-              <button className='btn btn_edit'onClick={this.edit}>edit</button>
+              <button className='btn btn_edit'onClick={this.toggleChange}>edit</button>
           </td>
         </tr>                  
     )
@@ -31,25 +50,21 @@ class Post extends Component {
 
   renderEdit = () => {
     return(
-    <tr className="table-posts__row table__row-body">
+     
       <Form
         defaultTitleValue = {this.props.title}
         defaultDescriptionValue = {this.props.description}
-        onChangeInput={({ title, description }) => {this.props.onEdit({ title, description }), this.cancel();} }
-        buttonCancelClick = {this.cancel}
+        onChangeInput={this.handlePostEdit}
+        buttonCancelClick = {this.toggleChange}
       />
-    </tr>
+   
     );
   }
 
   render(){
-    const edit = this.state.isEditing;
-    
-     if(edit){
-       return this.renderEdit();
-     } else return this.renderInit();
-    
-    
+    const isEditing = this.state.isEditing;
+    if(isEditing) return this.renderEdit();
+    else return this.renderInit();
   }
 }
 export default Post

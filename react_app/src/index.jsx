@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import PostsApp from './components/PostsApp'
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
+import PostsApp from './components/postsApp'
+import Header from './components/Header/header';
+import Footer from './components/Footer/footer';
 
 const App = () => (
   <div  className="page__wrapper">

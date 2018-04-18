@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PostsList from './PostsList'
-import PostEditor from './PostEditor'
+import PostsList from './postsList'
+import PostCreator from './postCreator'
 
 class PostsApp extends Component {
 
@@ -39,7 +39,21 @@ class PostsApp extends Component {
     });
     this.setState({ posts: newPosts });
   }
-  
+
+  handlePostPublished = (post) => {
+    const newPosts = this.state.posts.slice();
+    const index = newPosts.findIndex((storedPost) => storedPost.id === post.id);
+    newPosts[index].isPublished = !newPosts[index].isPublished;
+    this.setState({ posts: newPosts });
+  }
+
+  handlePostLiked = (post) => {
+    const newPosts = this.state.posts.slice();
+    const index = newPosts.findIndex((storedPost) => storedPost.id === post.id);
+    newPosts[index].isLiked = !newPosts[index].isLiked;
+    this.setState({ posts: newPosts });
+  }
+
   handlePostEdit = (post, { title, description }) => {
     const newPosts = this.state.posts.slice();
     const index = newPosts.findIndex((storedPost) => storedPost.id === post.id);
@@ -54,10 +68,12 @@ class PostsApp extends Component {
         <article className="todo-component">
           <div className="todo-component__wrapper">
             
-            <PostEditor 
+            <PostCreator 
               onPostAdd={this.handlePostAdd} />
             <PostsList
               posts={this.state.posts}
+              onPostLiked = {this.handlePostLiked}
+              onPostPublished = {this.handlePostPublished}
               onPostDelete={this.handlePostDel}
               onPostEdit={this.handlePostEdit}
             />
@@ -69,9 +85,9 @@ class PostsApp extends Component {
       return (
         <article className="todo-component">
           <div className="todo-component__wrapper">
-            <PostEditor 
+            <PostCreator 
               onPostAdd={this.handlePostAdd} />
-           <div>No posts</div>
+              <div className = "no-posts">No posts</div>
           </div>
         </article>
       );
