@@ -48,7 +48,7 @@ renderAdd = () => {
 }
 
   render(){
-    const isAdding = this.state.isAdding;
+    const {isAdding} = this.state;
     if(isAdding) return this.renderAdd();
     else return this.renderInit();
   }
