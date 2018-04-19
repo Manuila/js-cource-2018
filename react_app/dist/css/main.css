@@ -210,12 +210,12 @@ table {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column;
 }
 .form-add__cell{
   padding: 5px 10px;
 }
 .form-add__cell > input{
-  margin-bottom: 13px;
   width: 200px;
 }
 .form-add__cell > textarea{
