@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
 import PostsList from './postsList'
 import PostCreator from './postCreator'
+import PostLocalStorage from '../storage/PostLocalStorage'
+import LocalStoragePostRepository from '../repository/LocalStoragePostRepository'
 
 class PostsApp extends Component {
-
   state = {
     posts: []
   }
+
+  componentWillMount() {
+
+    this.postLocalStorage = new PostLocalStorage();
+    this.localStoragePostRepository = new LocalStoragePostRepository(this.postLocalStorage);
+  }
+
   // is invoked immediately after a component is mounted
   componentDidMount = () => {
-    var localPosts = JSON.parse(localStorage.getItem('posts'));
+    const localPosts = this.localStoragePostRepository.getAll();
     if (localPosts) {
-      this.setState({ posts: localPosts });
+    this.setState({ posts: localPosts });
     }
   }
 
@@ -19,47 +27,41 @@ class PostsApp extends Component {
   componentDidUpdate = () => {
     return this._updateLocalStorage();
   }
-
+  
   _updateLocalStorage = () => {
-    const posts = JSON.stringify(this.state.posts);
-    localStorage.setItem('posts', posts);
+    this.postLocalStorage.saveAllPosts(this.state.posts);
   }
-
+  
   handlePostAdd = (newPost) => {
-    // create a copy posts
-    const newPosts = this.state.posts.slice();
-    newPosts.unshift(newPost);
-    this.setState({ posts: newPosts });
+    this.localStoragePostRepository.add(newPost);
+    this.setState({ posts: this.localStoragePostRepository.getAll() });
   }
 
   handlePostDel = (post) => {
-    const postId = post.id;
-    const newPosts = this.state.posts.filter((post) => {
-      return post.id !== postId;
-    });
-    this.setState({ posts: newPosts });
+    this.localStoragePostRepository.remove(post);
+    this.setState({ posts: this.localStoragePostRepository.getAll() });
   }
 
   handlePostPublished = (post) => {
-    const newPosts = this.state.posts.slice();
-    const index = newPosts.findIndex((storedPost) => storedPost.id === post.id);
-    newPosts[index].isPublished = !newPosts[index].isPublished;
-    this.setState({ posts: newPosts });
+    const selectedPost = this.localStoragePostRepository.getById(post.id);
+    selectedPost.isPublished = !selectedPost.isPublished;
+    this.localStoragePostRepository.update(selectedPost);
+    this.setState({ posts: this.localStoragePostRepository.getAll() });
   }
 
   handlePostLiked = (post) => {
-    const newPosts = this.state.posts.slice();
-    const index = newPosts.findIndex((storedPost) => storedPost.id === post.id);
-    newPosts[index].isLiked = !newPosts[index].isLiked;
-    this.setState({ posts: newPosts });
+    const selectedPost = this.localStoragePostRepository.getById(post.id);
+    selectedPost.isLiked = !selectedPost.isLiked;
+    this.localStoragePostRepository.update(selectedPost);
+    this.setState({ posts: this.localStoragePostRepository.getAll() });
   }
 
   handlePostEdit = (post, { title, description }) => {
-    const newPosts = this.state.posts.slice();
-    const index = newPosts.findIndex((storedPost) => storedPost.id === post.id);
-    newPosts[index].title = title;
-    newPosts[index].description = description;
-    this.setState({ posts: newPosts });
+    const selectedPost = this.localStoragePostRepository.getById(post.id);
+    selectedPost.title = title;
+    selectedPost.description = description;
+    this.localStoragePostRepository.update(selectedPost);
+    this.setState({ posts: this.localStoragePostRepository.getAll() });
   }
 
   render() {
