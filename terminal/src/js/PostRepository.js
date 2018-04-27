@@ -11,6 +11,7 @@ class PostRepository {
         return this.postStorage.getPosts()
           .then((posts) => {
             posts.push(post)
+            this.postStorage.savePosts(posts);
             this.postStorage.savePosts(posts)
             .then(()=>{
               return true;

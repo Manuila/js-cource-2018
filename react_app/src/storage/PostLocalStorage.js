@@ -1,7 +1,7 @@
 class PostLocalStorage {
     
     getAllPosts = () => {
-        return JSON.parse(window.localStorage.getItem('posts'));
+        return JSON.parse(window.localStorage.getItem('posts')) || [];
     }
     
     saveAllPosts = (newPosts) => {

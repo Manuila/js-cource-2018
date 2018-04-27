@@ -4,12 +4,29 @@ class LocalStoragePostRepository{
         this.postLocalStorage = postLocalStorage;
     };
 
+    /**
+     * @param {Object} post
+     */
     add = (post) => {
         const localPosts = this.postLocalStorage.getAllPosts();
+        console.log(localPosts);
         localPosts.unshift(post);
         this.postLocalStorage.saveAllPosts(localPosts);
     };
 
+    /**
+     * @param {Number} index
+     * @param {Object} post
+     */
+    addAt = (index, post) => {
+        const localPosts = this.postLocalStorage.getAllPosts();
+        localPosts.splice(index, 1, post);
+        this.postLocalStorage.saveAllPosts(localPosts);
+    }
+
+    /**
+     * @param {Object} post
+     */
     remove = (post) => {
         const postId = post.id;
         const newPosts = this.postLocalStorage.getAllPosts().filter((post) => {
@@ -18,23 +35,27 @@ class LocalStoragePostRepository{
         this.postLocalStorage.saveAllPosts(newPosts);
     };
 
-    update = (post) => {
+    /**
+     * @param {Object} post
+     */
+    indexOf = (post) => {
         const localPosts = this.postLocalStorage.getAllPosts();
         const index = localPosts.findIndex((storedPost) => storedPost.id === post.id);
-        localPosts[index] = post;
-        this.postLocalStorage.saveAllPosts(localPosts);
-      }
-    
+        return index;
+    }
+
     getAll = () => {
         return this.postLocalStorage.getAllPosts();
     };
 
-    getById = (id) => {
+    /**
+     * @param {Function} predicate
+     */
+    find = (predicate) => {
         const localPosts = this.postLocalStorage.getAllPosts();
-        const index = localPosts.findIndex((storedPost) => storedPost.id===id);
+        const index = localPosts.findIndex((post) => predicate(post));
         return localPosts[index] || null;
-
-    };
+    }
 }
 
 export default LocalStoragePostRepository;

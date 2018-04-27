@@ -43,24 +43,27 @@ class PostsApp extends Component {
   }
 
   handlePostPublished = (post) => {
-    const selectedPost = this.localStoragePostRepository.getById(post.id);
+    const index = this.localStoragePostRepository.indexOf(post);
+    const selectedPost = this.localStoragePostRepository.find((storedPost) => storedPost.id === post.id);
     selectedPost.isPublished = !selectedPost.isPublished;
-    this.localStoragePostRepository.update(selectedPost);
+    this.localStoragePostRepository.addAt(index, selectedPost);
     this.setState({ posts: this.localStoragePostRepository.getAll() });
   }
 
   handlePostLiked = (post) => {
-    const selectedPost = this.localStoragePostRepository.getById(post.id);
+    const index = this.localStoragePostRepository.indexOf(post);
+    const selectedPost = this.localStoragePostRepository.find((storedPost) => storedPost.id === post.id);
     selectedPost.isLiked = !selectedPost.isLiked;
-    this.localStoragePostRepository.update(selectedPost);
+    this.localStoragePostRepository.addAt(index, selectedPost);
     this.setState({ posts: this.localStoragePostRepository.getAll() });
   }
 
   handlePostEdit = (post, { title, description }) => {
-    const selectedPost = this.localStoragePostRepository.getById(post.id);
+    const index = this.localStoragePostRepository.indexOf(post);
+    const selectedPost = this.localStoragePostRepository.find((storedPost) => storedPost.id === post.id);
     selectedPost.title = title;
     selectedPost.description = description;
-    this.localStoragePostRepository.update(selectedPost);
+    this.localStoragePostRepository.addAt(index, selectedPost);
     this.setState({ posts: this.localStoragePostRepository.getAll() });
   }
 
