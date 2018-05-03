@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PostsApp from './components/postsApp'
 import Header from './components/Header/header';
 import Footer from './components/Footer/footer';
+import scss from './main.scss';
 
 const App = () => (
   <div  className="page__wrapper">

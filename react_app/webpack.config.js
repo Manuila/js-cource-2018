@@ -1,5 +1,6 @@
 const path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     devtool : 'none',
@@ -20,8 +21,12 @@ module.exports = {
                 loader: "babel-loader" 
             },
             {
-                test: /\.css$/,
-                use: [ 'style-loader', 'css-loader' ]
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                fallback: "style-loader",
+                use: ["css-loader", "sass-loader"]
+        })
+             
             }
         ]
     },
@@ -33,6 +38,7 @@ module.exports = {
         new HtmlWebpackPlugin({
         template: './dist/index.html',
         inject: "body"
-        })
+        }),
+        new ExtractTextPlugin("styles.css")
     ]
 };
