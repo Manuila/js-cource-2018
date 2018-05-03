@@ -23,15 +23,6 @@ class PostsApp extends Component {
     }
   }
 
-  // is invoked immediately after updating occurs
-  componentDidUpdate = () => {
-    return this._updateLocalStorage();
-  }
-  
-  _updateLocalStorage = () => {
-    this.postLocalStorage.saveAllPosts(this.state.posts);
-  }
-  
   handlePostAdd = (newPost) => {
     this.localStoragePostRepository.add(newPost);
     this.setState({ posts: this.localStoragePostRepository.getAll() });
@@ -67,14 +58,27 @@ class PostsApp extends Component {
     this.setState({ posts: this.localStoragePostRepository.getAll() });
   }
 
+  handlePostSearch = (event, nameProp) => {
+    const searchQuery = event.target.value.toLowerCase();
+    const savedPosts = this.localStoragePostRepository.getAll()
+    const displayedPosts = savedPosts.filter((post) => {
+      const searchValue = post[nameProp].toLowerCase();
+        return searchValue.indexOf(searchQuery) !== -1;
+    });
+    this.setState({ posts: displayedPosts });
+  };
+ 
   render() {
-    if(this.state.posts.length){
+    
+    if(this.localStoragePostRepository.getAll().length){
       return (
         <article className="todo-component">
           <div className="todo-component__wrapper">
-            
             <PostCreator 
-              onPostAdd={this.handlePostAdd} />
+              onPostAdd={this.handlePostAdd}
+            /> 
+            <input type="text" className="search-field" onChange={(event, nameProp) => this.handlePostSearch(event, "title")} />
+            <input type="text" className="search-field" onChange={(event, nameProp) => this.handlePostSearch(event, "description")} />
             <PostsList
               posts={this.state.posts}
               onPostLiked = {this.handlePostLiked}

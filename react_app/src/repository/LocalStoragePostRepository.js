@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 class LocalStoragePostRepository{
 
     constructor(postLocalStorage) {
