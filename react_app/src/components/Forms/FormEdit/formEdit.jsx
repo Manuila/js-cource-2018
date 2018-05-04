@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import Button  from '../../Button/button';
+import scss from './formEdit.scss';
 
 export class Form extends Component {
   constructor(props) {
@@ -38,14 +40,16 @@ export class Form extends Component {
         <td className="table-posts__cell table-posts__cell-body"></td>
         <td className="table-posts__cell table-posts__cell-body"></td>
         <td className="table-posts__cell table-posts__cell-body">
-          <button
-            className='btn btn_save'
-            onClick={this.handleClick} >Ok
-          </button>
-          <button
-            className='btn btn_cancel' 
-            onClick={this.props.buttonCancelClick}>Cancel
-          </button>
+          <Button
+            style = "btn_save"
+            handleClick = {this.handleClick}
+            title = "Ok"
+          />
+          <Button
+            style = "btn_cancel"
+            handleClick = {this.props.buttonCancelClick}
+            title = "Cancel"
+          />
         </td>
       </tr>
     );

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import uuidv1 from 'uuid/v1';
-import { Form } from "./Forms/formAdd";
+import { Form } from '../../Forms/FormAdd/formAdd';
 import dateFormat from 'dateformat';
+import Button  from '../../Button/button';
+
 
 class PostCreator extends Component {
  
@@ -30,7 +32,11 @@ renderInit = () => {
   return(
     <header className="todo-component__header">
       <h1 className='todo-component__header-title'>posts</h1>
-      <button className='btn btn_add' onClick={this.toggleChange}>create</button>
+      <Button
+          style = "btn_add"
+          handleClick = {this.toggleChange}
+          title = "create"
+      />
     </header>
   )
 }
@@ -47,7 +53,7 @@ renderAdd = () => {
   );
 }
 
-  render(){
+  render() {
     const {isAdding} = this.state;
     if(isAdding) return this.renderAdd();
     else return this.renderInit();

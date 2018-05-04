@@ -1,0 +1,25 @@
+.form-add {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+
+    &__cell {
+      padding: 5px 10px;
+      
+      &__input {
+        width: 200px;
+      }
+
+      &__textarea {
+        width: 200px;
+      }
+      &__item:first-child {
+        margin-right: 5px;
+
+      }
+    }
+  }
+  
+  

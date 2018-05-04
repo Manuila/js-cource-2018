@@ -1,5 +1,3 @@
-var _ = require('lodash');
-
 class LocalStoragePostRepository{
 
     constructor(postLocalStorage) {
@@ -57,6 +55,10 @@ class LocalStoragePostRepository{
         const localPosts = this.postLocalStorage.getAllPosts();
         const index = localPosts.findIndex((post) => predicate(post));
         return localPosts[index] || null;
+    }
+
+    count = () => {
+         return this.postLocalStorage.count();
     }
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form } from "./Forms/formSearch";
+import { Form } from '../../Forms/FormSearch/formSearch';
 
 class PostCreator extends Component {
  

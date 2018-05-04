@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Form } from "./Forms/formEdit";
+import { Form } from '../../Forms/FormEdit/formEdit';
+import Button  from '../../Button/button';
 
 class Post extends Component {
   state = {
@@ -41,8 +42,16 @@ class Post extends Component {
             </span>
           </td>
           <td className="table-posts__cell table-posts__cell-body" >
-              <button className='btn btn_del' onClick = {this.props.onDelete}>delete</button>
-              <button className='btn btn_edit'onClick={this.toggleChange}>edit</button>
+            <Button
+              style = " btn_del"
+              handleClick = {this.props.onDelete}
+              title = "delete"
+            />
+            <Button
+              style = "btn_edit"
+              handleClick = {this.toggleChange}
+              title = "edit"
+            />
           </td>
         </tr>                  
     )
@@ -54,7 +63,7 @@ class Post extends Component {
       <Form
         defaultTitleValue = {this.props.title}
         defaultDescriptionValue = {this.props.description}
-        onChangeInput={this.handlePostEdit}
+        onChangeInput = {this.handlePostEdit}
         buttonCancelClick = {this.toggleChange}
       />
    

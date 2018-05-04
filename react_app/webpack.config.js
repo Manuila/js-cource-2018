@@ -39,6 +39,6 @@ module.exports = {
         template: './dist/index.html',
         inject: "body"
         }),
-        new ExtractTextPlugin("styles.css")
+        new ExtractTextPlugin("css/style.css")
     ]
 };

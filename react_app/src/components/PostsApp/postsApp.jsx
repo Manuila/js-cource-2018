@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import PostsList from './postsList'
-import PostCreator from './postCreator'
-import PostLocalStorage from '../storage/PostLocalStorage'
-import LocalStoragePostRepository from '../repository/LocalStoragePostRepository'
+import PostsList from './PostsList/postsList'
+import PostCreator from './PostCreator/postCreator'
+import PostLocalStorage from '../../storage/PostLocalStorage'
+import LocalStoragePostRepository from '../../repository/LocalStoragePostRepository'
+import scss from './postsApp.scss';
 
 class PostsApp extends Component {
   state = {
@@ -70,7 +71,7 @@ class PostsApp extends Component {
  
   render() {
     
-    if(this.localStoragePostRepository.getAll().length){
+    if(this.localStoragePostRepository.count()){
       return (
         <article className="todo-component">
           <div className="todo-component__wrapper">
