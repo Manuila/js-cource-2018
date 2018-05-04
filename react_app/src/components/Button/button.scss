@@ -10,73 +10,73 @@
     margin: 0px 3px;
   }
   
-  .btn_add{
-  
-    background-color:#18bc9c;
-  
-    &::before {
-      font-family: "Font Awesome 5 Free";
-      font-weight: 400;
-      content: "\f0fe";
-      padding-right: 5px;
-    }
-  
-    &:hover{
-      background-color: #fff;
-      color: #18bc9c;
-    }
+@function unicode($str){
+  @return unquote("\"") + unquote(str-insert($str, "\\", 1)) + unquote("\"")
+};
+
+@mixin make-icon($unicode){
+  font-family: "Font Awesome 5 Free"; 
+	font-weight: 400; 
+	content:unicode($unicode);
+	padding-right: 5px;
+};
+.btn_add {
+
+  background-color:#18bc9c;
+
+  &::before {
+    @include make-icon("f0fe");
   }
-  
-  
-  .btn_edit{
-    background-color:#208fed;
-    
-    &::before {
-      font-family: "Font Awesome 5 Free";
-      font-weight: 400;
-      content: "\f044";
-      padding-right: 5px;
-    }
-  
-    &:hover{
-        background-color:#fff;
-        color:#208fed;
-    }
+
+  &:hover{
+    background-color: #fff;
+    color: #18bc9c;
   }
+}
+
+
+.btn_edit{
+  background-color:#208fed;
   
-  .btn_del{
-  
-    background-color:#e74c3c;
-   
-    &::before { 
-      font-family: "Font Awesome 5 Free";
-      font-weight: 400;
-      content: "\f2ed";
-      padding-right: 5px;
-    }
-  
-    &:hover{
-        background-color:#fff;
-        color: #e74c3c;
-    }
+  &::before {
+    @include make-icon("f044");
   }
-  
-  .btn_cancel{
-    
-    background-color: #d8534e;
-  
-    &:hover{
-      background-color: #fff;
-      color: #d8534e;
-    }
+
+  &:hover{
+      background-color:#fff;
+      color:#208fed;
   }
+}
+
+.btn_del{
+
+  background-color:#e74c3c;
   
-  .btn_save{
-    
-    background-color: #5db85b;
-    &:hover{
-      background-color: #fff;
-      color: #5db85b;
-    }
+  &::before {
+    @include make-icon("f2ed");
   }
+
+  &:hover{
+      background-color:#fff;
+      color: #e74c3c;
+  }
+}
+
+.btn_cancel{
   
+  background-color: #d8534e;
+
+  &:hover{
+    background-color: #fff;
+    color: #d8534e;
+  }
+}
+
+.btn_save{
+  
+  background-color: #5db85b;
+  &:hover{
+    background-color: #fff;
+    color: #5db85b;
+  }
+}
