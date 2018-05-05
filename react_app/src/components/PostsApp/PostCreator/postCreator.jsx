@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form } from '../../Forms/FormAdd/formAdd';
-import PostService from '../../../services/postService';
+import PostService from '../../../services/PostService';
 import Button  from '../../Button/button';
 
 class PostCreator extends Component {

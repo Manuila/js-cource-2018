@@ -1,4 +1,4 @@
-import Post from '../models/post.js';
+import Post from '../models/Post.js';
 import uuidv1 from 'uuid/v1';
 import dateFormat from 'dateformat';
 

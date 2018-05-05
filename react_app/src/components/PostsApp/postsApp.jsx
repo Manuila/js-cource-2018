@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PostsList from './PostsList/postsList'
 import PostCreator from './PostCreator/postCreator'
-import PostLocalStorage from '../../storage/PostLocalStorage'
-import LocalStoragePostRepository from '../../repository/LocalStoragePostRepository'
+import PostMapper from '../../repositories/dataMapper/PostMapper'
+import LocalStoragePostRepository from '../../repositories/LocalStoragePostRepository'
 import scss from './postsApp.scss';
 
 class PostsApp extends Component {
@@ -12,8 +12,8 @@ class PostsApp extends Component {
 
   componentWillMount() {
 
-    this.postLocalStorage = new PostLocalStorage();
-    this.localStoragePostRepository = new LocalStoragePostRepository(this.postLocalStorage);
+    this.postMapper = new PostMapper();
+    this.localStoragePostRepository = new LocalStoragePostRepository(this.postMapper);
   }
 
   // is invoked immediately after a component is mounted
@@ -36,7 +36,7 @@ class PostsApp extends Component {
 
   handlePostPublished = (post) => {
     const index = this.localStoragePostRepository.indexOf(post);
-    const selectedPost = this.localStoragePostRepository.find((storedPost) => storedPost.id === post.id);
+    const selectedPost = this.localStoragePostRepository.findPost(post);
     selectedPost.isPublished = !selectedPost.isPublished;
     this.localStoragePostRepository.addAt(index, selectedPost);
     this.setState({ posts: this.localStoragePostRepository.getAll() });
@@ -44,7 +44,7 @@ class PostsApp extends Component {
 
   handlePostLiked = (post) => {
     const index = this.localStoragePostRepository.indexOf(post);
-    const selectedPost = this.localStoragePostRepository.find((storedPost) => storedPost.id === post.id);
+    const selectedPost = this.localStoragePostRepository.findPost(post);
     selectedPost.isLiked = !selectedPost.isLiked;
     this.localStoragePostRepository.addAt(index, selectedPost);
     this.setState({ posts: this.localStoragePostRepository.getAll() });
@@ -52,7 +52,7 @@ class PostsApp extends Component {
 
   handlePostEdit = (post, { title, description }) => {
     const index = this.localStoragePostRepository.indexOf(post);
-    const selectedPost = this.localStoragePostRepository.find((storedPost) => storedPost.id === post.id);
+    const selectedPost = this.localStoragePostRepository.findPost(post);
     selectedPost.title = title;
     selectedPost.description = description;
     this.localStoragePostRepository.addAt(index, selectedPost);
