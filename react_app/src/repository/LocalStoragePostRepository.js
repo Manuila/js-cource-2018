@@ -9,7 +9,6 @@ class LocalStoragePostRepository{
      */
     add = (post) => {
         const localPosts = this.postLocalStorage.getAllPosts();
-        console.log(localPosts);
         localPosts.unshift(post);
         this.postLocalStorage.saveAllPosts(localPosts);
     };
@@ -58,7 +57,7 @@ class LocalStoragePostRepository{
     }
 
     count = () => {
-         return this.postLocalStorage.count();
+         return this.postLocalStorage.countPosts();
     }
 }
 
