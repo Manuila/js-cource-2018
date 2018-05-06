@@ -24,6 +24,7 @@ class PostCreator extends Component {
     const post = this.postService.create();
     post.title = title;
     post.description = description;
+    console.log(post);
     this.props.onPostAdd(post);
     this.toggleChange();
   }

@@ -24,7 +24,7 @@ class LocalStoragePostsListDAO {
     }
 
     /**
-     * @param {Number} id
+     * @param {String} id
      * @return {Post}
      */
     getById = (id) => {
