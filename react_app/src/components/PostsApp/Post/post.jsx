@@ -29,7 +29,7 @@ class Post extends Component {
           <td className="table-posts__cell table-posts__cell-body">
             <input 
               type="checkbox"
-              checked = {this.props.isPublished}
+              defaultChecked = {this.props.isPublished}
               onClick = {this.props.onPostPublished}
             />
           </td>

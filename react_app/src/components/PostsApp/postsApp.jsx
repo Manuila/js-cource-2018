@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PostsList from './PostsList/postsList'
 import PostCreator from './PostCreator/postCreator'
-import PostMapper from '../../repositories/dataMapper/PostMapper'
-import LocalStoragePostRepository from '../../repositories/LocalStoragePostRepository'
+import LocalStoragePostsListDAO from '../../dao/LocalStoragePostsListDAO'
+import PostsListService from '../../services/PostsListService'
 import scss from './postsApp.scss';
 
 class PostsApp extends Component {
@@ -11,75 +11,59 @@ class PostsApp extends Component {
   }
 
   componentWillMount() {
-
-    this.postMapper = new PostMapper();
-    this.localStoragePostRepository = new LocalStoragePostRepository(this.postMapper);
+    this.localStoragePostsListDAO = new LocalStoragePostsListDAO();
+    this.postsListService = new PostsListService(this.localStoragePostsListDAO);
   }
 
   // is invoked immediately after a component is mounted
   componentDidMount = () => {
-    const localPosts = this.localStoragePostRepository.getAll();
+    const localPosts = this.postsListService.getAll();
     if (localPosts) {
     this.setState({ posts: localPosts });
     }
   }
 
-  handlePostAdd = (newPost) => {
-    this.localStoragePostRepository.add(newPost);
-    this.setState({ posts: this.localStoragePostRepository.getAll() });
+  handlePostAdd = (post) => {
+    this.postsListService.add(post);
+    this.setState({ posts: this.postsListService.getAll() });
   }
 
   handlePostDel = (post) => {
-    this.localStoragePostRepository.remove(post);
-    this.setState({ posts: this.localStoragePostRepository.getAll() });
+    this.postsListService.remove(post);
+    this.setState({ posts: this.postsListService.getAll() });
   }
 
   handlePostPublished = (post) => {
-    const index = this.localStoragePostRepository.indexOf(post);
-    const selectedPost = this.localStoragePostRepository.findPost(post);
+    const selectedPost = this.postsListService.getById(post.id);
     selectedPost.isPublished = !selectedPost.isPublished;
-    this.localStoragePostRepository.addAt(index, selectedPost);
-    this.setState({ posts: this.localStoragePostRepository.getAll() });
+    this.postsListService.update(selectedPost);
+    this.setState({ posts: this.postsListService.getAll() });
   }
 
   handlePostLiked = (post) => {
-    const index = this.localStoragePostRepository.indexOf(post);
-    const selectedPost = this.localStoragePostRepository.findPost(post);
+    const selectedPost = this.postsListService.getById(post.id);
     selectedPost.isLiked = !selectedPost.isLiked;
-    this.localStoragePostRepository.addAt(index, selectedPost);
-    this.setState({ posts: this.localStoragePostRepository.getAll() });
+    this.postsListService.update(selectedPost);
+    this.setState({ posts: this.postsListService.getAll() });
   }
 
   handlePostEdit = (post, { title, description }) => {
-    const index = this.localStoragePostRepository.indexOf(post);
-    const selectedPost = this.localStoragePostRepository.findPost(post);
+    const selectedPost = this.postsListService.getById(post.id);
     selectedPost.title = title;
     selectedPost.description = description;
-    this.localStoragePostRepository.addAt(index, selectedPost);
-    this.setState({ posts: this.localStoragePostRepository.getAll() });
+    this.postsListService.update(selectedPost);
+    this.setState({ posts: this.postsListService.getAll() });
   }
 
-  handlePostSearch = (event, nameProp) => {
-    const searchQuery = event.target.value.toLowerCase();
-    const savedPosts = this.localStoragePostRepository.getAll()
-    const displayedPosts = savedPosts.filter((post) => {
-      const searchValue = post[nameProp].toLowerCase();
-        return searchValue.indexOf(searchQuery) !== -1;
-    });
-    this.setState({ posts: displayedPosts });
-  };
- 
   render() {
     
-    if(this.localStoragePostRepository.count()){
+    if(this.state.posts.length){
       return (
         <article className="todo-component">
           <div className="todo-component__wrapper">
             <PostCreator 
               onPostAdd={this.handlePostAdd}
             /> 
-            <input type="text" className="search-field" onChange={(event, nameProp) => this.handlePostSearch(event, "title")} />
-            <input type="text" className="search-field" onChange={(event, nameProp) => this.handlePostSearch(event, "description")} />
             <PostsList
               posts={this.state.posts}
               onPostLiked = {this.handlePostLiked}

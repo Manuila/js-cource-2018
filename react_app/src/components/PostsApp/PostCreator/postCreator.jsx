@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import uuidv1 from 'uuid/v1';
 import { Form } from '../../Forms/FormAdd/formAdd';
-import PostService from '../../../services/PostService';
+import dateFormat from 'dateformat';
 import Button  from '../../Button/button';
+import PostService from '../../../services/PostService';
 
 class PostCreator extends Component {
+ 
   state = {
     isAdding: false
   };
@@ -11,21 +14,19 @@ class PostCreator extends Component {
   componentWillMount() {
     this.postService = new PostService();
   }
-  
-  toggleChange = () => {
+  toggleChange = () =>{
     this.setState({
       isAdding: !this.state.isAdding,
     });
   }
 
-  handlePostAdd = ({ title, description }) => {
-    const post = this.postService.createPost();
+  handlePostAdd = ({ title, description }) =>{
+    const post = this.postService.create();
     post.title = title;
     post.description = description;
     this.props.onPostAdd(post);
     this.toggleChange();
   }
-
   renderInit = () => {
     return(
       <header className="todo-component__header">
@@ -52,10 +53,9 @@ class PostCreator extends Component {
   }
 
   render() {
-    const { isAdding } = this.state;
-    if( isAdding ) return this.renderAdd();
+    const {isAdding} = this.state;
+    if(isAdding) return this.renderAdd();
     else return this.renderInit();
   }
 }
-
 export default PostCreator;
