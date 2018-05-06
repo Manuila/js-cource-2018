@@ -3,7 +3,6 @@ import PostService from '../src/services/PostService';
 import chai from 'chai';
 import dateFormat from 'dateformat';
 
-chai.should();
 const expect = chai.expect;
 
 describe('PostService', () => {
@@ -19,6 +18,7 @@ describe('PostService', () => {
     });
     
     it('"id" should be generated automatically', () => {
+      expect(post).to.have.property('id')
       // This will fail if "post.id" doesn't type of string.
       expect(post.id).to.be.a('string');
       // This will fail if "post.id" doesn't length 36.
@@ -26,6 +26,7 @@ describe('PostService', () => {
     });
 
     it('"date" should be generated automatically', () => {
+      expect(post).to.have.property('date')
       // This will fail if "post.date" doesn't type of string.
       expect(post.date).to.be.a('string');
       // This will fail if "post.date" doesn't length 25.
@@ -33,27 +34,31 @@ describe('PostService', () => {
     });
 
     it('"title" should be equals to empty string', () => {
+      expect(post).to.have.property('title')
       // This will fail if "post.title" doesn't type of string.
       expect(post.title).to.be.a('string');
       // This will fail if "post.title" doesn't equal false.
-      post.title.should.equal('');
+      expect( post.title).to.equal('');
     });
 
     it('"description" should be equals to empty string', () => {
+      expect(post).to.have.property('description')
       // This will fail if "post.description" doesn't type of string.
       expect(post.description).to.be.a('string');
       // This will fail if "post.description" doesn't equal false.
-      post.description.should.equal('');
+      expect(post.description).to.equal('');
     });
 
     it('"isPublished" should be equals to false', () => {
+      expect(post).to.have.property('isPublished')
       // This will fail if "post.isPublished" doesn't equal false.
-      post.isPublished.should.equal(false);
+      expect(post.isPublished).to.equal(false);
     });
 
     it('"isLiked" should be equals to false', () => {
+      expect(post).to.have.property('isLiked')
       // This will fail if "post.isLiked" doesn't equal false.
-      post.isLiked.should.equal(false);
+      expect(post.isLiked).to.equal(false);
     });
   });
 });
