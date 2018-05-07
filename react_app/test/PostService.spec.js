@@ -1,12 +1,11 @@
 import Post from '../src/models/Post';
 import PostService from '../src/services/PostService';
 import chai from 'chai';
-import dateFormat from 'dateformat';
 
 const expect = chai.expect;
 
 describe('PostService', () => {
-  describe('#when creating new post', () => {
+  describe('when creating new post', () => {
     let post;
     let postService;
 
@@ -18,35 +17,30 @@ describe('PostService', () => {
     });
     
     it('"id" should be generated automatically', () => {
-      expect(post).to.have.property('id')
+      // This will fail if "post.id" doesn't length 36.
+      expect(post).to.have.property('id').with.lengthOf(36)
       // This will fail if "post.id" doesn't type of string.
       expect(post.id).to.be.a('string');
-      // This will fail if "post.id" doesn't length 36.
-      expect(post.id).to.have.lengthOf(36);
     });
 
     it('"date" should be generated automatically', () => {
-      expect(post).to.have.property('date')
+      expect(post).to.have.property('date');
       // This will fail if "post.date" doesn't type of string.
       expect(post.date).to.be.a('string');
-      // This will fail if "post.date" doesn't length 25.
-      expect(post.date).to.have.lengthOf(25);
     });
 
     it('"title" should be equals to empty string', () => {
-      expect(post).to.have.property('title')
+      // This will fail if "post.title" doesn't equal empty string.
+      expect(post).to.have.property('title').with.lengthOf(0)
       // This will fail if "post.title" doesn't type of string.
       expect(post.title).to.be.a('string');
-      // This will fail if "post.title" doesn't equal false.
-      expect( post.title).to.equal('');
     });
 
     it('"description" should be equals to empty string', () => {
-      expect(post).to.have.property('description')
+      // This will fail if "post.description" doesn't equal empty string.
+      expect(post).to.have.property('description').with.lengthOf(0)
       // This will fail if "post.description" doesn't type of string.
       expect(post.description).to.be.a('string');
-      // This will fail if "post.description" doesn't equal false.
-      expect(post.description).to.equal('');
     });
 
     it('"isPublished" should be equals to false', () => {
@@ -60,5 +54,6 @@ describe('PostService', () => {
       // This will fail if "post.isLiked" doesn't equal false.
       expect(post.isLiked).to.equal(false);
     });
+
   });
 });

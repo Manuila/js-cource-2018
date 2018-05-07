@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PostsList from './PostsList/postsList'
 import PostCreator from './PostCreator/postCreator'
-import LocalStoragePostsListDAO from '../../dao/LocalStoragePostsListDAO'
+import PostsListDAO from '../../dao/PostsListDAO'
 import PostsListService from '../../services/PostsListService'
+import LocalStorageManager from '../../fileManager/LocalStorageManager'
 import scss from './postsApp.scss';
 
 class PostsApp extends Component {
@@ -11,7 +12,8 @@ class PostsApp extends Component {
   }
 
   componentWillMount() {
-    this.localStoragePostsListDAO = new LocalStoragePostsListDAO();
+    this.LocalStorageManager = new LocalStorageManager('posts');
+    this.localStoragePostsListDAO = new PostsListDAO(this.LocalStorageManager);
     this.postsListService = new PostsListService(this.localStoragePostsListDAO);
   }
 

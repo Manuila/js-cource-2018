@@ -1,19 +1,20 @@
 class LocalStorageManager {
 
+    constructor(key) {
+        this.key = key;
+    }
      /**
-     * @param {string} nameData
      * @return {Object}
      */
-    static read = (nameData) => {
-        return JSON.parse(window.localStorage.getItem(nameData));
+    read = () => {
+        return JSON.parse(localStorage.getItem(this.key));
     }
     
     /**
-     * @param {string} nameData
      * @param {Object} data
      */
-    static write = (nameData, data) => {
-        window.localStorage.setItem(nameData, JSON.stringify(data));
+    write = (data) => {
+        localStorage.setItem(this.key, JSON.stringify(data));
     }
 }
 

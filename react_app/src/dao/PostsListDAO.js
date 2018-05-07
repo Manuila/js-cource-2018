@@ -1,14 +1,16 @@
-import LocalStorageManager from '../fileManager/LocalStorageManager'
+class PostsListDAO {
 
-class LocalStoragePostsListDAO {
-
+    constructor(fileManager) {
+        this.fileManager = fileManager;
+    }
+  
     /**
      * @param {Post} post
      */
     add = (post) => {
-        const localPosts = LocalStorageManager.read('posts') || [];
+        const localPosts = this.fileManager.read() || [];
         localPosts.unshift(post);
-        LocalStorageManager.write('posts', localPosts);
+        this.fileManager.write(localPosts);
     }
 
     /**
@@ -16,11 +18,11 @@ class LocalStoragePostsListDAO {
      */
     remove = (post) => {
         const postId = post.id;
-        const localPosts = LocalStorageManager.read('posts');
+        const localPosts = this.fileManager.read();
         const newPosts = localPosts.filter((post) => {
           return post.id !== postId;
         });
-        LocalStorageManager.write('posts', newPosts);
+        this.fileManager.write(newPosts);
     }
 
     /**
@@ -28,7 +30,7 @@ class LocalStoragePostsListDAO {
      * @return {Post}
      */
     getById = (id) => {
-        const localPosts = LocalStorageManager.read('posts');
+        const localPosts = this.fileManager.read();
         const index = localPosts.findIndex((post) => post.id === id);
         return localPosts[index] || null;
     }
@@ -37,19 +39,19 @@ class LocalStoragePostsListDAO {
      * @param {Post} post
      */
     update = (post) => {
-        const localPosts = LocalStorageManager.read('posts');
+        const localPosts = this.fileManager.read();
         const index = localPosts.findIndex((storedPost) => storedPost.id === post.id);
         localPosts[index] = post;
-        LocalStorageManager.write('posts', localPosts);
+        this.fileManager.write(localPosts);
     }
 
     /**
      * @return {Array}
      */
     getAll = () => {
-        const localPosts = LocalStorageManager.read('posts');
+        const localPosts = this.fileManager.read();
         return localPosts;
     }
 }
 
-export default LocalStoragePostsListDAO;
+export default PostsListDAO;
