@@ -5,7 +5,7 @@ import posts from './routes/post.routes';
 import bodyParser from 'body-parser'
 const app = express();
 
-app.use(bodyParser.json());
+
 // MongoDB Connection
 mongoose.connect(serverConfig.mongoURL, (error) => {
   if (error) {
@@ -13,7 +13,9 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
     throw error;
   }
 });
-
+app.use(bodyParser.json());
 app.use('/posts', posts);
 
-app.listen(serverConfig.port)
+app.listen(serverConfig.port, () => {
+  console.log(`Server running on port ${serverConfig.port}!`);
+})

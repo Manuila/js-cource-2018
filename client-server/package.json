@@ -9,5 +9,8 @@
     "start": "concurrently \"npm run start:server\" \"npm run start:client\""
   },
   "author": "Manuila",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
 }

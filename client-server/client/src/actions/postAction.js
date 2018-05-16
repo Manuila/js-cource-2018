@@ -1,16 +1,21 @@
 import * as types from '../actions/actionTypes';
 
-export const getPosts = posts => ({
+export const getPostsSuccess = posts => ({
   type: types.GET_POSTS,
   posts,
 });
 
-export const addPost = post => ({
+export const addPostSuccess = post => ({
   type: types.ADD_POST,
   post,
 });
 
-export const deletePost = postId => ({
+export const deletePostSuccess = postId => ({
   type: types.DELETE_POST,
   postId,
+});
+
+export const updatePostSuccess = post => ({
+  type: types.UPDATE_POST,
+  post,
 });
