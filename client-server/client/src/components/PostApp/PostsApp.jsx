@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PostsList from './PostsList';
 import PostCreator from './PostCreator';
-import * as postAPI from '../../api/postAPI';
+import postAPI from '../../api/postAPI';
 import './postsApp.scss';
 
 class PostsApp extends Component {
