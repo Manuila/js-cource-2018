@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Post from './Post';
+import dateFormat from 'dateformat';
 
 function PostsList({
   posts, onPostLiked, onPostPublished, onPostDelete, onPostEdit,
@@ -29,7 +30,7 @@ function PostsList({
                   index={i + 1}
                   title={post.title}
                   description={post.description}
-                  date={post.date}
+                  date={dateFormat(post.date, 'dd.mm.yyyy HH:MM')}
                   isPublished={post.isPublished}
                   isLiked={post.isLiked}
                   onPostLiked={() => onPostLiked(post)}

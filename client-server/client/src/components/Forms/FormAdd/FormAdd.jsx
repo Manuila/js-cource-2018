@@ -26,6 +26,8 @@ class FormAdd extends Component {
             className="form-add__cell__input"
             ref={this.titleInput}
             placeholder="title"
+            required
+            aria-required="true"
           />
         </div>
         <div className="form-add__cell">

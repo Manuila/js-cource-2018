@@ -32,13 +32,13 @@ module.exports = {
   },
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
-    proxy: {
-      '/': {
-        target: 'http://localhost:3000',
-        secure: false,
-        changeOrigin: true,
-      },
-    },
+    // proxy: {
+    //   '/': {
+    //     target: 'http://localhost:3000',
+    //     secure: false,
+    //     changeOrigin: true,
+    //   },
+    // },
   },
 
   plugins: [

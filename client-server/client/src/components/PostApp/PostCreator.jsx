@@ -15,11 +15,7 @@ class PostCreator extends Component {
   }
 
   handlePostAdd({ title, description }) {
-    const post = {
-      title,
-      description,
-    };
-    this.props.onPostAdd(post);
+    this.props.onPostAdd({ title, description });
     this.toggleChange();
   }
   renderInit() {

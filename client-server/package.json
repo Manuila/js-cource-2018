@@ -10,7 +10,5 @@
   },
   "author": "Manuila",
   "license": "ISC",
-  "dependencies": {
-    "axios": "^0.18.0"
-  }
+  "dependencies": {}
 }
