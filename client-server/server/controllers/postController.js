@@ -1,9 +1,10 @@
 import PostService from '../services/PostService';
-import * as MongoDBPostDAO from '../dao/MongoDBPostDAO';
+import MongoDBPostDAO from '../dao/MongoDBPostDAO';
 
-const postService = new PostService(MongoDBPostDAO);
+const postDAO = new MongoDBPostDAO();
+const postService = new PostService(postDAO);
 
-export function getPosts(req, res) {
+export function getPosts(req, res){
   postService.getAll()
     .then(posts => res.status(200).json({ posts }))
     .catch(error => res.status(404).send(error));

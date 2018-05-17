@@ -37,8 +37,7 @@ const postReducer = (state = initialState, action) => {
         posts: newPosts,
       };
     }
-    // no default
+    default: return state;
   }
-  return state;
 };
 export default postReducer;

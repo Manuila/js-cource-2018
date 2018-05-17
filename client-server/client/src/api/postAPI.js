@@ -5,7 +5,7 @@ import { getPostsSuccess, addPostSuccess, deletePostSuccess, updatePostSuccess }
 const url = 'http://localhost:3000';
 
 export function getPosts() {
-  return axios.get(`${url}/posts`)
+  axios.get(`${url}/posts`)
     .then((res) => {
       store.dispatch(getPostsSuccess(res.data.posts));
       return res;
@@ -13,7 +13,7 @@ export function getPosts() {
 }
 
 export function deletePost(postId) {
-  return axios.delete(`${url}/posts/${postId}`)
+  axios.delete(`${url}/posts/${postId}`)
     .then((res) => {
       store.dispatch(deletePostSuccess(postId));
       return res;
@@ -21,7 +21,7 @@ export function deletePost(postId) {
 }
 
 export function addPost(post) {
-  return axios.post(`${url}/posts`, { post })
+  axios.post(`${url}/posts`, { post })
     .then((res) => {
       store.dispatch(addPostSuccess(res.data.post));
       return res;
@@ -29,7 +29,7 @@ export function addPost(post) {
 }
 
 export function updatePost(post) {
-  return axios.put(`${url}/posts/${post._id}`, { post })
+  axios.put(`${url}/posts/${post._id}`, { post })
     .then((res) => {
       store.dispatch(updatePostSuccess(post));
       return res;

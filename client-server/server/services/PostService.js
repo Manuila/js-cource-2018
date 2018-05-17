@@ -6,7 +6,7 @@ class PostService {
   /**
    * @return {Promise}
    */
-  add(post) {
+  add(post){
     return this.postDAO.add(post);
   }
 
@@ -25,8 +25,8 @@ class PostService {
   }
 
   /**
-     * @param {Post} post
-     */
+   * @return {Promise}
+   */
   update(id, data) {
     return this.postDAO.update(id, data);
   }
