@@ -5,7 +5,6 @@ import { getPostsSuccess, addPostSuccess, deletePostSuccess, updatePostSuccess }
 export function getPosts() {
   return axios.get('/posts')
     .then((res) => {
-      //console.log(res.data);
       store.dispatch(getPostsSuccess(res.data));
       return res;
     });
@@ -27,18 +26,10 @@ export function addPost(post) {
     });
 }
 
-export function getPost(postId) {
-  return axios.get(`/posts/${postId}`)
-    .then((res) => {
-      return res.data;
-    });
-}
-
 export function updatePost(post) {
   return axios.put(`/posts/${post._id}`, { post })
     .then((res) => {
-      //console.log(post);
       store.dispatch(updatePostSuccess(post));
-      return res.data;
+      return res;
     });
 }

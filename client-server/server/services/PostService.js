@@ -32,7 +32,7 @@ class PostService {
   }
 
   /**
-     * @return {Array}
+     * @return {Promise}
      */
   getAll() {
     return this.postDAO.getAll();

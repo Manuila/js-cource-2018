@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import serverConfig from './config';
 import express from 'express';
-import posts from './routes/post.routes';
+import posts from './routes/postRoutes';
 import bodyParser from 'body-parser'
 const app = express();
 

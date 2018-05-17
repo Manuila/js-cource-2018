@@ -26,7 +26,9 @@ import Post from '../models/post';
   }
 
   /**
-   * @param {Post} post
+   * @param {String} id
+   * @param {Object} data
+   * @return {Promise}
    */
   export function update(id, data) {
     return Post.update({ _id: id }, data);
@@ -36,12 +38,7 @@ import Post from '../models/post';
    * @return {Promise}
    */
   export function getAll() {
-    return Post.find((err, posts) => {
-      if (err) return err;
-      return posts;
-    })//.exec((error, posts) => {
-    //   error ? null : posts
-    // });
+    return Post.find().sort('-date');
   }
 
 

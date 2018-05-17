@@ -32,10 +32,10 @@ function PostsList({
                   date={post.date}
                   isPublished={post.isPublished}
                   isLiked={post.isLiked}
-                  onPostLiked={() => onPostLiked(post_id)}
-                  onPostPublished={() => onPostPublished(post._id)}
+                  onPostLiked={() => onPostLiked(post)}
+                  onPostPublished={() => onPostPublished(post)}
                   onDelete={() => onPostDelete(post._id)}
-                  onEdit={({ title, description }) => onPostEdit(post._id, { title, description })}
+                  onEdit={({ title, description }) => onPostEdit(post, { title, description })}
                 />
               ))
             }

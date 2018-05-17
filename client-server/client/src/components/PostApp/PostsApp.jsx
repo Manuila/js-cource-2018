@@ -1,45 +1,35 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PostsList from './PostsList';
 import PostCreator from './PostCreator';
 import * as postAPI from '../../api/postAPI';
 import './postsApp.scss';
-import store from '../../store/store';
 
 class PostsApp extends Component {
   componentWillMount() {
     postAPI.getPosts();
   }
 
-  handlePostPublished = (id) => {
-    postAPI.getPost(id)
-      .then((post) => {
-        post.isPublished = !post.isPublished;
-        postAPI.updatePost(post);
-      });
+  handlePostPublished = (post) => {
+    post.isPublished = !post.isPublished;
+    postAPI.updatePost(post);
   }
 
-  handlePostLiked = (id) => {
-    postAPI.getPost(id)
-    .then((post) => {
-      selectedPost.isLiked = !selectedPost.isLiked;
-      postAPI.updatePost(post);
-    });
+  handlePostLiked = (post) => {
+    post.isLiked = !post.isLiked;
+    postAPI.updatePost(post);
   }
 
-  handlePostEdit = (id, { title, description }) => {
-    postAPI.getPost(id)
-    .then((post) => {
-      post.title = title;
-      post.description = description;
-      postAPI.updatePost(post);
-    });
+  handlePostEdit = (post, { title, description }) => {
+    post.title = title;
+    post.description = description;
+    postAPI.updatePost(post);
   }
 
   render() {
     if (this.props.posts.length) {
       console.log(this.props.posts.length);
-      //console.log(store.getState());
       return (
         <article className="todo-component">
           <div className="todo-component__wrapper">
@@ -48,10 +38,10 @@ class PostsApp extends Component {
             />
             <PostsList
               posts={this.props.posts}
-              onPostLiked={id => this.handlePostLiked(id)}
-              onPostPublished={id => this.handlePostPublished(id)}
+              onPostLiked={post => this.handlePostLiked(post)}
+              onPostPublished={post => this.handlePostPublished(post)}
               onPostDelete={id => postAPI.deletePost(id)}
-              onPostEdit={(id, { title, description }) => this.handlePostEdit(id, { title, description })}
+              onPostEdit={(post, { title, description }) => this.handlePostEdit(post, { title, description })}
             />
           </div>
         </article>
@@ -69,6 +59,9 @@ class PostsApp extends Component {
     );
   }
 }
+PostsApp.propTypes = {
+  posts: PropTypes.instanceOf(Array).isRequired,
+};
 const mapStateToProps = state => ({
   posts: state.posts,
 });
