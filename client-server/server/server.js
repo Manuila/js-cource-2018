@@ -3,6 +3,7 @@ import serverConfig from './config';
 import express from 'express';
 import posts from './routes/postRoutes';
 import bodyParser from 'body-parser'
+
 const app = express();
 
 
@@ -26,3 +27,5 @@ app.use('/posts', posts);
 app.listen(serverConfig.port, () => {
   console.log(`Server running on port ${serverConfig.port}!`);
 });
+
+export default app;

@@ -28,7 +28,7 @@ class PostsApp extends Component {
   }
 
   render() {
-    if (this.props.posts.length) {
+     if (this.props.posts.length) {
       console.log(this.props.posts.length);
       return (
         <article className="todo-component">
@@ -46,8 +46,10 @@ class PostsApp extends Component {
           </div>
         </article>
       );
-    }
+   }
+    
     return (
+      
       <article className="todo-component">
         <div className="todo-component__wrapper">
           <PostCreator
@@ -58,6 +60,7 @@ class PostsApp extends Component {
       </article>
     );
   }
+
 }
 PostsApp.propTypes = {
   posts: PropTypes.instanceOf(Array).isRequired,

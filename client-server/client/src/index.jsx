@@ -1,4 +1,5 @@
 import { Provider } from 'react-redux';
+import { Router, Route, hasHistory } from 'react-router';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PostsApp from './components/PostApp/PostsApp';

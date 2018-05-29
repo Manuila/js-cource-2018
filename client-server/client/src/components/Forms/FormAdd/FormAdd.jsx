@@ -20,7 +20,7 @@ class FormAdd extends Component {
 
   render() {
     return (
-      <div className="form-add">
+      <form className="form-add">
         <div className="form-add__cell">
           <input
             className="form-add__cell__input"
@@ -51,7 +51,7 @@ class FormAdd extends Component {
             label="Cancel"
           />
         </div>
-      </div>
+      </form>
     );
   }
 }

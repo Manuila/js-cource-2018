@@ -17,7 +17,9 @@ export default class MongoDBPostDAO extends PostDAO {
      */
   remove(id) {
     return Post.findByIdAndRemove(id);
+     
   }
+  
 
   /**
      * @param {String} id
@@ -32,10 +34,16 @@ export default class MongoDBPostDAO extends PostDAO {
      * @param {Object} data
      * @return {Promise}
      */
-  update(id, data) {
-    return Post.update({ _id: id }, data);
+  update(post) {
+    return Post.update({ _id: post._id }, {
+      title: post.title,
+      description: post.description,
+      isPublished: post.isPublished,
+      isLiked: post.isLiked,
+    });
   }
 
+  
   /**
      * @return {Promise}
      */
