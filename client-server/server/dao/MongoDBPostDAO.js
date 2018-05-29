@@ -7,8 +7,13 @@ export default class MongoDBPostDAO extends PostDAO {
      * @return {Promise}
      */
   add(newPost) {
-    const post = new Post(newPost);
-    return post.save();
+    try {
+      const post = new Post(newPost);
+      return post.save();
+    }
+    catch(error) {
+      throw error;
+    }
   }
 
   /**
@@ -16,31 +21,44 @@ export default class MongoDBPostDAO extends PostDAO {
      * @return {Promise}
      */
   remove(id) {
-    return Post.findByIdAndRemove(id);
-     
+    try {
+      return Post.findByIdAndRemove(id);
+    }
+    catch(error) {
+      throw error;
+    }
   }
   
-
   /**
      * @param {String} id
      * @return {Promise}
      */
   getById(id) {
-    return Post.findOne({ _id: id });
+    try {
+      return Post.findOne({ _id: id });
+    }
+    catch(error) {
+      throw error;
+    }
+    
   }
 
   /**
-     * @param {String} id
-     * @param {Object} data
+     * @param {Object} post
      * @return {Promise}
      */
   update(post) {
-    return Post.update({ _id: post._id }, {
-      title: post.title,
-      description: post.description,
-      isPublished: post.isPublished,
-      isLiked: post.isLiked,
-    });
+    try {
+      return Post.update({ _id: post._id }, {
+        title: post.title,
+        description: post.description,
+        isPublished: post.isPublished,
+        isLiked: post.isLiked,
+      });
+    }
+    catch(error) {
+      throw error;
+    }
   }
 
   
@@ -48,6 +66,11 @@ export default class MongoDBPostDAO extends PostDAO {
      * @return {Promise}
      */
   getAll() {
-    return Post.find().sort('-date');
+    try {
+      return Post.find().sort('-date');
+    }
+    catch(error) {
+      throw error;
+    }
   }
 }
