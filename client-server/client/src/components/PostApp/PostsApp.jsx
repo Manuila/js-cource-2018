@@ -47,20 +47,20 @@ class PostsApp extends Component {
         </article>
       );
    }
-    
-    return (
-      
-      <article className="todo-component">
-        <div className="todo-component__wrapper">
-          <PostCreator
-            onPostAdd={post => postAPI.addPost(post)}
-          />
-          <div className="no-posts">No posts</div>
-        </div>
-      </article>
-    );
+    else {
+      return (
+        
+        <article className="todo-component">
+          <div className="todo-component__wrapper">
+            <PostCreator
+              onPostAdd={post => postAPI.addPost(post)}
+            />
+            <div className="no-posts">No posts</div>
+          </div>
+        </article>
+      );
+    }
   }
-
 }
 PostsApp.propTypes = {
   posts: PropTypes.instanceOf(Array).isRequired,

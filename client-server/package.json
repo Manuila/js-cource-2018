@@ -9,8 +9,5 @@
     "start": "concurrently \"npm run start:server\" \"npm run start:client\""
   },
   "author": "Manuila",
-  "license": "ISC",
-  "dependencies": {
-    "react-router": "^4.2.0"
-  }
+  "license": "ISC"
 }

@@ -1,6 +1,45 @@
 
-[2018-05-30T15:47:36.832] [INFO] post - Posts successful loaded
-[2018-05-30T15:55:09.008] [INFO] post - Posts successful loaded
-[2018-05-30T15:56:05.530] [INFO] post - Posts successful loaded
-[2018-05-30T15:56:06.355] [INFO] post - Posts successful loaded
-[2018-05-30T16:08:16.020] [INFO] post - Posts successful loaded
+[2018-05-30T16:31:17.243] [INFO] post - Posts successful loaded
+[2018-05-30T16:31:49.146] [INFO] post - Posts successful loaded
+[2018-05-30T16:32:00.797] [INFO] post - Posts successful loaded
+[2018-05-30T16:32:05.726] [INFO] post - Posts successful loaded
+[2018-05-30T16:32:07.278] [INFO] post - Posts successful loaded
+[2018-05-30T16:32:09.006] [INFO] post - Posts successful loaded
+[2018-05-30T16:32:10.269] [INFO] post - Posts successful loaded
+[2018-05-30T16:32:11.707] [INFO] post - Posts successful loaded
+[2018-05-30T16:32:13.444] [INFO] post - Posts successful loaded
+[2018-05-30T16:32:17.930] [INFO] post - Posts successful loaded
+[2018-05-30T16:32:25.514] [INFO] post - Posts successful loaded
+[2018-05-30T16:32:30.023] [INFO] post - Posts successful loaded
+[2018-05-30T16:32:40.265] [INFO] post - Posts successful loaded
+[2018-05-30T16:32:45.819] [INFO] post - Posts successful loaded
+[2018-05-30T16:32:48.039] [INFO] post - Posts successful loaded
+[2018-05-30T16:32:49.758] [INFO] post - Posts successful loaded
+[2018-05-30T19:01:09.035] [INFO] post - Posts successful loaded
+[2018-05-30T19:08:28.633] [ERROR] post - Cannot save. Error details: Could not find stored procedure 'I'.
+[2018-05-30T19:08:34.386] [INFO] post - Posts successful loaded
+[2018-05-30T19:08:39.140] [ERROR] post - Cannot save. Error details: Could not find stored procedure 'I'.
+[2018-05-30T19:09:04.637] [INFO] post - Post successful saved. Post details: [object Object]
+[2018-05-30T19:10:34.557] [INFO] post - Posts successful loaded
+[2018-05-30T19:10:38.678] [INFO] post - Post successful removed. Post details: { isPublished: false,
+  isLiked: false,
+  _id: 5b0ea762740a8525ec9b8b73,
+  title: '\\',
+  description: '',
+  date: 2018-05-30T13:30:10.593Z,
+  __v: 0 }
+[2018-05-30T19:11:01.973] [INFO] post - Post successful saved. Post details: { isPublished: false,
+  isLiked: false,
+  _id: 5b0ecd15f4343b11c8a4411a,
+  title: '2',
+  description: '',
+  date: 2018-05-30T16:11:01.879Z,
+  __v: 0 }
+[2018-05-30T19:11:29.881] [INFO] post - Post successful updated. Post details: 5b0ecd15f4343b11c8a4411a
+[2018-05-30T19:11:36.332] [INFO] post - Post successful removed. Post details: { isPublished: false,
+  isLiked: false,
+  _id: 5b0ecd15f4343b11c8a4411a,
+  title: 'wqjdkjwq',
+  description: 'ndsnk',
+  date: 2018-05-30T16:11:01.879Z,
+  __v: 0 }
