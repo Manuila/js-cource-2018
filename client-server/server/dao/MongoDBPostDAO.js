@@ -1,76 +1,118 @@
 import Post from '../models/post';
 import PostDAO from './PostDAO';
+import mongoose from 'mongoose';
 
 export default class MongoDBPostDAO extends PostDAO {
+
+  constructor(mongoURI){
+    super();
+    this.mongoURI = mongoURI;
+  }
+
+  get connect(){
+    return mongoose.connect(this.mongoURI)
+  }
   /**
-     * @param {Object} newPost
-     * @return {Promise}
-     */
+   * @param {Object} newPost
+   * @return {Promise}
+   */
   add(newPost) {
-    try {
-      const post = new Post(newPost);
-      return post.save();
-    }
-    catch(error) {
-      throw error;
-    }
+    return new Promise((resolve, reject) => {
+      this.connect.then(() => {
+        const post = new Post(newPost);
+				return post.save();
+			})
+				.then(result => {
+					resolve(result);
+					mongoose.connection.close();
+				})
+				.catch(error => {
+					reject(error);
+          mongoose.connection.close();
+				});
+		});
   }
 
   /**
-     * @param {String} id
-     * @return {Promise}
-     */
+   * @param {String} id
+   * @return {Promise}
+   */
   remove(id) {
-    try {
-      return Post.findByIdAndRemove(id);
-    }
-    catch(error) {
-      throw error;
-    }
-  }
-  
+    return new Promise((resolve, reject) => {
+      this.connect.then(() => {
+				return Post.findByIdAndRemove(id);
+			})
+				.then(result => {
+					resolve(result);
+					mongoose.connection.close();
+				})
+				.catch(error => {
+					reject(error);
+          mongoose.connection.close();
+				});
+		});
+	}
+   
   /**
-     * @param {String} id
-     * @return {Promise}
-     */
+   * @param {String} id
+   * @return {Promise}
+   */
   getById(id) {
-    try {
-      return Post.findOne({ _id: id });
-    }
-    catch(error) {
-      throw error;
-    }
-    
+    return new Promise((resolve, reject) => {
+      this.connect.then(() => {
+				return Post.findOne({ _id: id });
+			})
+				.then(result => {
+					resolve(result);
+					mongoose.connection.close();
+				})
+				.catch(error => {
+					reject(error);
+          mongoose.connection.close();
+				});
+		});
   }
-
-  /**
-     * @param {Object} post
-     * @return {Promise}
-     */
-  update(post) {
-    try {
-      return Post.update({ _id: post._id }, {
-        title: post.title,
-        description: post.description,
-        isPublished: post.isPublished,
-        isLiked: post.isLiked,
-      });
-    }
-    catch(error) {
-      throw error;
-    }
-  }
-
   
   /**
-     * @return {Promise}
-     */
+   * @param {Object} post
+   * @return {Promise}
+   */
+  update(post) {
+    return new Promise((resolve, reject) => {
+      this.connect.then(() => {
+				return Post.update({ _id: post._id }, {
+          title: post.title,
+          description: post.description,
+          isPublished: post.isPublished,
+          isLiked: post.isLiked,});
+			})
+				.then(result => {
+					resolve(result);
+					mongoose.connection.close();
+				})
+				.catch(error => {
+					reject(error);
+          mongoose.connection.close();
+				});
+		});
+	}
+
+  /**
+   * @return {Promise}
+   */
   getAll() {
-    try {
-      return Post.find().sort('-date');
-    }
-    catch(error) {
-      throw error;
-    }
-  }
+    return new Promise((resolve, reject) => {
+      this.connect.then(() => {
+				return Post.find().sort('-date');
+			})
+				.then(result => {
+					resolve(result);
+					mongoose.connection.close();
+				})
+				.catch(error => {
+					reject(error);
+          mongoose.connection.close();
+				});
+		});
+	}
 }

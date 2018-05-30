@@ -4,7 +4,7 @@ import MSSQLPostDAO from '../dao/MSSQLPostDAO';
 import { logger } from '../utils';
 import config from '../config';
 
-const postDAO = new MSSQLPostDAO(config.MSSQL_URI);
+const postDAO = new MongoDBPostDAO(config.MONGO_URI);
 const postService = new PostService(postDAO);
 
 export default {
