@@ -7,7 +7,6 @@ class PostService {
    * @return {Promise}
    */
   add(post){
-    //console.log(this.postDAO.add(post));
     return this.postDAO.add(post);
   }
 

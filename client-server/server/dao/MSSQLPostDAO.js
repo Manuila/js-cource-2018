@@ -2,14 +2,14 @@ import sql from 'mssql';
 import PostDAO from './PostDAO';
 
 export default class MSSQLPostDAO extends PostDAO {
-  constructor(mssqlURI){
-    super();
-    this.mssqlURI = mssqlURI;
-  }
+	constructor(mssqlURI){
+		super();
+		this.mssqlURI = mssqlURI;
+	}
 
-  get connect(){
-    return sql.connect(this.mssqlURI)
-  }
+	get connect(){
+		return sql.connect(this.mssqlURI);
+	}
 	/**
    * @param {Object} newPost
    * @return {Promise}
@@ -82,7 +82,7 @@ export default class MSSQLPostDAO extends PostDAO {
    */
 	update(post) {
 		return new Promise((resolve, reject) => {
-      this.connect.then(() => {
+			this.connect.then(() => {
 				return sql.query`UPDATE Post
         SET title = ${post.title}, description = ${post.description},
         isPublished = ${post.isPublished}, isLiked = ${post.isLiked}
@@ -104,7 +104,7 @@ export default class MSSQLPostDAO extends PostDAO {
    */
 	getAll() {
 		return new Promise((resolve, reject) => {
-      this.connect.then(() => {
+			this.connect.then(() => {
 				return sql.query`SELECT * FROM Post ORDER BY date DESC`;
 			})
 				.then(result => {
