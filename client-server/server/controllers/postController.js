@@ -1,8 +1,10 @@
 import PostService from '../services/PostService';
 import MongoDBPostDAO from '../dao/MongoDBPostDAO';
+import MSSQLPostDAO from '../dao/MSSQLPostDAO';
 import { logger } from '../utils';
+import config from '../config';
 
-const postDAO = new MongoDBPostDAO();
+const postDAO = new MSSQLPostDAO(config.MSSQL_URI);
 const postService = new PostService(postDAO);
 
 export default {
@@ -71,7 +73,6 @@ export default {
       const updatedPost = Object.assign(post, {_id:idPost});
       postService.update(updatedPost)
         .then((data) => {
-          console.log(updatedPost);
           res.status(200).json({data});
           logger.info(`Post successful updated. Post details: ${updatedPost._id}`);
         })

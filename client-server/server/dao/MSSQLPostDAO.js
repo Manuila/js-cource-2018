@@ -1,15 +1,22 @@
 import sql from 'mssql';
 import PostDAO from './PostDAO';
-import config from '../config';
 
 export default class MSSQLPostDAO extends PostDAO {
+  constructor(mssqlURI){
+    super();
+    this.mssqlURI = mssqlURI;
+  }
+
+  get connect(){
+    return sql.connect(this.mssqlURI)
+  }
 	/**
    * @param {Object} newPost
    * @return {Promise}
    */
 	add(newPost) {
 		return new Promise((resolve, reject) => {
-			sql.connect(config.MSSQL_URI).then(() => {
+			this.connect.then(() => {
 				return sql.query`INSERT INTO Post (title, description)
         OUTPUT INSERTED._id, INSERTED.title, INSERTED.description,
         INSERTED.isPublished, INSERTED.isLiked, INSERTED.date
@@ -32,7 +39,7 @@ export default class MSSQLPostDAO extends PostDAO {
    */
 	remove(id) {
 		return new Promise((resolve, reject) => {
-			sql.connect(config.MSSQL_URI).then(() => {
+			this.connect.then(() => {
 				return sql.query`DELETE FROM Post
           OUTPUT DELETED._id, DELETED.title, DELETED.description,
           DELETED.isPublished, DELETED.isLiked, DELETED.date
@@ -55,7 +62,7 @@ export default class MSSQLPostDAO extends PostDAO {
    */
 	getById(id) {
 		return new Promise((resolve, reject) => {
-			sql.connect(config.MSSQL_URI).then(() => {
+			this.connect.then(() => {
 				return sql.query`SELECT * FROM Post WHERE _id = ${id}`;
 			})
 				.then(result => {
@@ -75,7 +82,7 @@ export default class MSSQLPostDAO extends PostDAO {
    */
 	update(post) {
 		return new Promise((resolve, reject) => {
-			sql.connect(config.MSSQL_URI).then(() => {
+      this.connect.then(() => {
 				return sql.query`UPDATE Post
         SET title = ${post.title}, description = ${post.description},
         isPublished = ${post.isPublished}, isLiked = ${post.isLiked}
@@ -97,7 +104,7 @@ export default class MSSQLPostDAO extends PostDAO {
    */
 	getAll() {
 		return new Promise((resolve, reject) => {
-			sql.connect(config.MSSQL_URI).then(() => {
+      this.connect.then(() => {
 				return sql.query`SELECT * FROM Post ORDER BY date DESC`;
 			})
 				.then(result => {
