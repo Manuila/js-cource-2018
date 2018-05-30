@@ -3,7 +3,6 @@ import PostDAO from './PostDAO';
 import config from '../config';
 
 export default class MSSQLPostDAO extends PostDAO {
-
 	/**
    * @param {Object} newPost
    * @return {Promise}
